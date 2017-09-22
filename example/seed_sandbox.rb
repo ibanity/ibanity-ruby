@@ -22,8 +22,7 @@ sandbox_account = Ibanity::SandboxAccount.create(
   relationship: "owner",
   iban: "BE123456679",
   description: "Checking account",
-  currency: "EUR",
-  balance: 56.42
+  currency: "EUR"
 })
 ap sandbox_account
 
