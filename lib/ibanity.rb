@@ -37,7 +37,7 @@ module Ibanity
         :api_scheme,
         :api_host,
         :api_port,
-        :ssl_ca_path
+        :ssl_ca_file
       ).new
     end
 
