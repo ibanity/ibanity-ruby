@@ -36,7 +36,8 @@ module Ibanity
         :key_passphrase,
         :api_scheme,
         :api_host,
-        :api_port
+        :api_port,
+        :ssl_ca_path
       ).new
     end
 
