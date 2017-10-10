@@ -43,19 +43,19 @@ module Ibanity
 
     def api_schema
       @urls ||= {
-        "customers"                    => "https://api.ibanity.com/customers/{customerId}",
-        "customerAccounts"             => "https://api.ibanity.com/customers/{customerId}/accounts/{accountId}",
-        "applicationAccounts"          => "https://api.ibanity.com/accounts",
-        "applicationTransactions"      => "https://api.ibanity.com/transactions",
-        "customerAccountTransactions"  => "https://api.ibanity.com/customers/{customerId}/accounts/{accountId}/transactions/{transactionId}",
-        "financialInstitutions"        => "https://api.ibanity.com/financial-institutions/{financialInstitutionId}",
-        "customerAuthorizations"       => "https://api.ibanity.com/customers/{customerId}/authorizations/{authorizationId}",
-        "customerSynchronizations"     => "https://api.ibanity.com/customers/{customerId}/synchronizations/{authorizationId}",
+        "customers"                    => "#{client.base_uri}/customers/{customerId}",
+        "customerAccounts"             => "#{client.base_uri}/customers/{customerId}/accounts/{accountId}",
+        "applicationAccounts"          => "#{client.base_uri}/accounts",
+        "applicationTransactions"      => "#{client.base_uri}/transactions",
+        "customerAccountTransactions"  => "#{client.base_uri}/customers/{customerId}/accounts/{accountId}/transactions/{transactionId}",
+        "financialInstitutions"        => "#{client.base_uri}/financial-institutions/{financialInstitutionId}",
+        "customerAuthorizations"       => "#{client.base_uri}/customers/{customerId}/authorizations/{authorizationId}",
+        "customerSynchronizations"     => "#{client.base_uri}/customers/{customerId}/synchronizations/{authorizationId}",
         "sandbox"                      => {
-          "financialInstitutions" => "https://api.ibanity.com/sandbox/financial-institutions/{financialInstitutionId}",
-          "users"                 => "https://api.ibanity.com/sandbox/users/{sandboxUserId}",
-          "accounts"              => "https://api.ibanity.com/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}",
-          "transactions"          => "https://api.ibanity.com/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}/transactions/{sandboxTransactionId}"
+          "financialInstitutions" => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}",
+          "users"                 => "#{client.base_uri}/sandbox/users/{sandboxUserId}",
+          "accounts"              => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}",
+          "transactions"          => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}/transactions/{sandboxTransactionId}"
         }
       }
     end

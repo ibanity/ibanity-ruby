@@ -1,5 +1,8 @@
 module Ibanity
   class Client
+
+    attr_reader :base_uri
+
     def initialize(certificate:, key:, key_passphrase:, api_scheme: "https", api_host: "api.ibanity.com", api_port: "443", ssl_ca_file: nil)
       @certificate = OpenSSL::X509::Certificate.new(certificate)
       @key         = OpenSSL::PKey::RSA.new(key, key_passphrase)

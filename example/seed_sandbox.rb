@@ -7,6 +7,8 @@ Ibanity.configure do |config|
   config.certificate    = ENV["IBANITY_CERTIFICATE"]
   config.key            = ENV["IBANITY_KEY"]
   config.key_passphrase = ENV["IBANITY_PASSPHRASE"]
+  config.api_host       = ENV["IBANITY_API_HOST"]
+  config.ssl_ca_file    = ENV["IBANITY_SSL_CA_FILE"]
 end
 
 sandbox_financial_institution = Ibanity::FinancialInstitution.create_sandbox(name: "Fake Bank TEAMLEADER")
