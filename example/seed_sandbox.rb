@@ -11,10 +11,10 @@ Ibanity.configure do |config|
   config.ssl_ca_file    = ENV["IBANITY_SSL_CA_FILE"]
 end
 
-sandbox_financial_institution = Ibanity::FinancialInstitution.create_sandbox(name: "Fake Bank TEAMLEADER")
+sandbox_financial_institution = Ibanity::FinancialInstitution.create_sandbox(name: "Fake Bank")
 ap sandbox_financial_institution
 
-sandbox_user = Ibanity::SandboxUser.create(attributes: {login: "plop", password: "lelutin", firstName: "Plop", lastName: "Polp"})
+sandbox_user = Ibanity::SandboxUser.create(attributes: {login: "jhon", password: "jhon", firstName: "Jhon", lastName: "Doe"})
 
 sandbox_account = Ibanity::SandboxAccount.create(
   sandbox_user_id: sandbox_user.id,
@@ -83,9 +83,3 @@ Ibanity::SandboxTransaction.create(
     currency: "EUR"
   }
 )
-
-ap Ibanity::Synchronization.create_and_wait(Ibanity::Customer.all.first.id)
-
-ap Ibanity::Customer.all
-ap Ibanity::Customer.all.first.accounts
-ap Ibanity::Customer.all.first.accounts.first.transactions

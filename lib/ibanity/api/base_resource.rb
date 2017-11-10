@@ -1,34 +1,34 @@
 module Ibanity
   class BaseResource < OpenStruct
-    def self.create_by_uri(uri, resource_type, attributes)
+    def self.create_by_uri(uri, resource_type, attributes, access_token = nil)
       payload = {
         data: {
           type:       resource_type,
           attributes: attributes
         }
       }
-      raw_item = Ibanity.client.post(uri, payload)
+      raw_item = Ibanity.client.post(uri, payload, {}, access_token)
       new(raw_item["data"])
     end
 
-    def self.all_by_uri(uri)
-      raw_items = Ibanity.client.get(uri)
+    def self.all_by_uri(uri, access_token = nil)
+      raw_items = Ibanity.client.get(uri, {}, access_token)
       raw_items["data"].map do |raw_item|
         new(raw_item)
       end
     end
 
-    def self.find_by_uri(uri)
-      new(find_raw_by_uri(uri))
+    def self.find_by_uri(uri, access_token = nil)
+      new(find_raw_by_uri(uri, access_token))
     end
 
-    def self.find_raw_by_uri(uri)
-      raw_item = Ibanity.client.get(uri)
+    def self.find_raw_by_uri(uri, access_token = nil)
+      raw_item = Ibanity.client.get(uri, {}, access_token)
       raw_item["data"]
     end
 
-    def self.destroy_by_uri(uri)
-      raw_item = Ibanity.client.delete(uri)
+    def self.destroy_by_uri(uri, access_token = nil)
+      raw_item = Ibanity.client.delete(uri, {}, access_token)
       new(raw_item["data"])
     end
 
@@ -67,17 +67,17 @@ module Ibanity
         if relationship["data"]
           klass = Ibanity.const_get(Ibanity::Util.camelize(key))
           method_name = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do
-            klass.find_by_uri(relationship["links"]["related"])
+          define_singleton_method(method_name) do |access_token = nil|
+            klass.find_by_uri(relationship["links"]["related"], access_token)
           end
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
         else
           singular_key = key[0..-2]
           klass        = Ibanity.const_get(Ibanity::Util.camelize(singular_key))
           method_name  = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do
+          define_singleton_method(method_name) do |access_token = nil|
             uri = relationship["links"]["related"]
-            klass.all_by_uri(uri)
+            klass.all_by_uri(uri, access_token)
           end
         end
       end

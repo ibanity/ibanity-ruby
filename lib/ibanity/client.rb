@@ -10,20 +10,20 @@ module Ibanity
       @ssl_ca_file = ssl_ca_file
     end
 
-    def get(uri, query_params = {})
-      execute(:get, uri, headers, query_params)
+    def get(uri, query_params = {}, access_token = nil)
+      execute(:get, uri, build_headers(access_token), query_params, nil)
     end
 
-    def post(uri, payload, query_params = {})
-      execute(:post, uri, headers, query_params, payload)
+    def post(uri, payload, query_params = {}, access_token = nil)
+      execute(:post, uri, build_headers(access_token), query_params, payload)
     end
 
-    def patch(uri, payload, query_params = {})
-      execute(:patch, uri, headers, query_params, payload)
+    def patch(uri, payload, query_params = {}, access_token = nil)
+      execute(:patch, uri, build_headers(access_token), query_params, payload)
     end
 
-    def delete(uri, query_params = {})
-      execute(:delete, uri, headers, query_params)
+    def delete(uri, query_params = {}, access_token = nil)
+      execute(:delete, uri, build_headers(access_token), query_params)
     end
 
     def build_uri(path)
@@ -50,13 +50,14 @@ module Ibanity
           response.return!(&block)
         end
       end
-      JSON.parse(raw_response)
+      JSON.parse(raw_response) 
     end
 
-    def headers
+    def build_headers(access_token = nil)
       {
-        content_type: :json,
-        accept:       :json
+        content_type:  :json,
+        accept:        :json,
+        authorization: access_token.nil? ? nil : "Bearer #{access_token}" 
       }
     end
   end

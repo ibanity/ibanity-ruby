@@ -56,7 +56,10 @@ module Ibanity
           "users"                 => "#{client.base_uri}/sandbox/users/{sandboxUserId}",
           "accounts"              => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}",
           "transactions"          => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}/transactions/{sandboxTransactionId}"
-        }
+        },
+        "financialInstitution" => {
+          "accounts" => "#{client.base_uri}/financial-institutions/{financialInstitutionId}/accounts/{accountId}"
+        } 
       }
     end
 
