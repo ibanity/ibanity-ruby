@@ -13,10 +13,16 @@ require_relative "ibanity/api/account"
 require_relative "ibanity/api/transaction"
 require_relative "ibanity/api/authorization"
 require_relative "ibanity/api/financial_institution"
+require_relative "ibanity/api/financial_identity"
+require_relative "ibanity/api/account_information_access_request"
+require_relative "ibanity/api/payment_initiation_request"
+require_relative "ibanity/api/fund_availability_access_request"
 require_relative "ibanity/api/synchronization"
 require_relative "ibanity/api/sandbox_account"
 require_relative "ibanity/api/sandbox_transaction"
 require_relative "ibanity/api/sandbox_user"
+require_relative "ibanity/api/authentication"
+require_relative "ibanity/api/access_token"
 
 module Ibanity
   class << self
@@ -42,25 +48,7 @@ module Ibanity
     end
 
     def api_schema
-      @urls ||= {
-        "customers"                    => "#{client.base_uri}/customers/{customerId}",
-        "customerAccounts"             => "#{client.base_uri}/customers/{customerId}/accounts/{accountId}",
-        "applicationAccounts"          => "#{client.base_uri}/accounts",
-        "applicationTransactions"      => "#{client.base_uri}/transactions",
-        "customerAccountTransactions"  => "#{client.base_uri}/customers/{customerId}/accounts/{accountId}/transactions/{transactionId}",
-        "financialInstitutions"        => "#{client.base_uri}/financial-institutions/{financialInstitutionId}",
-        "customerAuthorizations"       => "#{client.base_uri}/customers/{customerId}/authorizations/{authorizationId}",
-        "customerSynchronizations"     => "#{client.base_uri}/customers/{customerId}/synchronizations/{authorizationId}",
-        "sandbox"                      => {
-          "financialInstitutions" => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}",
-          "users"                 => "#{client.base_uri}/sandbox/users/{sandboxUserId}",
-          "accounts"              => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}",
-          "transactions"          => "#{client.base_uri}/sandbox/financial-institutions/{financialInstitutionId}/users/{sandboxUserId}/accounts/{sandboxAccountId}/transactions/{sandboxTransactionId}"
-        },
-        "financialInstitution" => {
-          "accounts" => "#{client.base_uri}/financial-institutions/{financialInstitutionId}/accounts/{accountId}"
-        } 
-      }
+      @api_schema ||= client.get(client.base_uri)["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)

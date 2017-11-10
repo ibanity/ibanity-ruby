@@ -38,6 +38,9 @@ module Ibanity
 
       relationships = raw["relationships"] || {}
       setup_relationships(relationships)
+
+      links = raw["links"] || {}
+      setup_links(links)
     end
 
     def reload!
@@ -54,7 +57,7 @@ module Ibanity
     def prepare_attributes(raw)
       base = {
         "id"  => raw["id"],
-        "uri" => raw["links"]["self"]
+        "uri" => raw["links"] && raw["links"]["self"]
       }
       attributes           = raw["attributes"]    || {}
       meta                 = raw["meta"]          || {}
@@ -80,6 +83,12 @@ module Ibanity
             klass.all_by_uri(uri, access_token)
           end
         end
+      end
+    end
+
+    def setup_links(links)
+      links.each do |key, link|
+        self[Ibanity::Util.underscore("#{key}_link")] = link
       end
     end
   end
