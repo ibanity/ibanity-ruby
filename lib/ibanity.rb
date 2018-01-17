@@ -22,7 +22,7 @@ require_relative "ibanity/api/sandbox_account"
 require_relative "ibanity/api/sandbox_transaction"
 require_relative "ibanity/api/sandbox_user"
 require_relative "ibanity/api/authentication"
-require_relative "ibanity/api/access_token"
+require_relative "ibanity/api/customer_access_token"
 
 module Ibanity
   class << self
