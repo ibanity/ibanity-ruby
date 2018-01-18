@@ -15,11 +15,6 @@ ap Ibanity.api_schema
 # financial_institution = Ibanity::FinancialInstitution.all.first
 # ap financial_institution
 
-# ap Ibanity::Authentication.create_for_financial_institution(
-#   financial_institution_id: financial_institution.id,
-#   attributes: { redirectUri: "http://localhost/test" }
-# )
-
 # ap Ibanity::AccessToken.create_for_financial_institution(
 #   financial_institution_id: "f4b55ee4-5517-465c-8abc-231bff16659a", attributes: { authorizationCode: "dbe216dd-7326-490b-b842-e63156ef0638" })
 
