@@ -15,5 +15,10 @@ module Ibanity
       uri = Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", id)
       find_by_uri(uri)
     end
+
+    def self.delete(id)
+      uri = Ibanity.api_schema["sandbox"]["financialInstitutions"].gsub("{financialInstitutionId}", id)
+      destroy_by_uri(uri)
+    end
   end
 end
