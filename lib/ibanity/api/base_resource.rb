@@ -8,36 +8,36 @@ module Ibanity
         }
       }
       raw_item = Ibanity.client.post(uri, payload, {}, access_token)
-      new(raw_item["data"])
+      new(raw_item["data"], access_token)
     end
 
-    def self.all_by_uri(uri, access_token = nil)
-      raw_items = Ibanity.client.get(uri, {}, access_token)
+    def self.all_by_uri(uri, customer_access_token = nil)
+      raw_items = Ibanity.client.get(uri, {}, customer_access_token)
       raw_items["data"].map do |raw_item|
-        new(raw_item)
+        new(raw_item, customer_access_token)
       end
     end
 
-    def self.find_by_uri(uri, access_token = nil)
-      new(find_raw_by_uri(uri, access_token))
+    def self.find_by_uri(uri, customer_access_token = nil)
+      new(find_raw_by_uri(uri, customer_access_token), customer_access_token)
     end
 
-    def self.find_raw_by_uri(uri, access_token = nil)
-      raw_item = Ibanity.client.get(uri, {}, access_token)
+    def self.find_raw_by_uri(uri, customer_access_token = nil)
+      raw_item = Ibanity.client.get(uri, {}, customer_access_token)
       raw_item["data"]
     end
 
-    def self.destroy_by_uri(uri, access_token = nil)
-      raw_item = Ibanity.client.delete(uri, {}, access_token)
+    def self.destroy_by_uri(uri, customer_access_token = nil)
+      raw_item = Ibanity.client.delete(uri, {}, customer_access_token)
       new(raw_item["data"])
     end
 
-    def initialize(raw)
+    def initialize(raw, customer_access_token = nil)
       attributes = prepare_attributes(raw)
       super(attributes)
 
       relationships = raw["relationships"] || {}
-      setup_relationships(relationships)
+      setup_relationships(relationships, customer_access_token)
 
       links = raw["links"] || {}
       setup_links(links)
@@ -65,22 +65,22 @@ module Ibanity
       Ibanity::Util.underscorize_hash(params)
     end
 
-    def setup_relationships(relationships)
+    def setup_relationships(relationships, customer_access_token = nil)
       relationships.each do |key, relationship|
         if relationship["data"]
           klass = Ibanity.const_get(Ibanity::Util.camelize(key))
           method_name = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do |access_token = nil|
-            klass.find_by_uri(relationship["links"]["related"], access_token)
+          define_singleton_method(method_name) do
+            klass.find_by_uri(relationship["links"]["related"], customer_access_token)
           end
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
         else
           singular_key = key[0..-2]
           klass        = Ibanity.const_get(Ibanity::Util.camelize(singular_key))
           method_name  = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do |access_token = nil|
+          define_singleton_method(method_name) do
             uri = relationship["links"]["related"]
-            klass.all_by_uri(uri, access_token)
+            klass.all_by_uri(uri, customer_access_token)
           end
         end
       end
