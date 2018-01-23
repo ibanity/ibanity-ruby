@@ -32,6 +32,17 @@ module Ibanity
       new(raw_item["data"])
     end
 
+    def self.update_by_uri(uri, resource_type, attributes, customer_access_token = nil)
+      payload = {
+        data: {
+          type: resource_type,
+          attributes: attributes
+        }
+      }
+      raw_item = Ibanity.client.patch(uri, payload, {}, customer_access_token)
+      new(raw_item["data"])
+    end
+
     def initialize(raw, customer_access_token = nil)
       attributes = prepare_attributes(raw)
       super(attributes)
