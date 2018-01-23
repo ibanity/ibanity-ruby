@@ -18,6 +18,7 @@ require_relative "ibanity/api/fund_availability_access_request"
 require_relative "ibanity/api/sandbox_account"
 require_relative "ibanity/api/sandbox_transaction"
 require_relative "ibanity/api/sandbox_user"
+require_relative "ibanity/api/sandbox_financial_institution"
 require_relative "ibanity/api/customer_access_token"
 
 module Ibanity

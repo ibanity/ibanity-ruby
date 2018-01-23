@@ -11,7 +11,7 @@ Ibanity.configure do |config|
   config.ssl_ca_file    = ENV["IBANITY_SSL_CA_FILE"]
 end
 
-sandbox_financial_institution = Ibanity::FinancialInstitution.create_sandbox(name: "Fake Bank")
+sandbox_financial_institution = Ibanity::SandboxFinancialInstitution.create(name: "Fake Bank")
 ap sandbox_financial_institution
 
 sandbox_user = Ibanity::SandboxUser.create(attributes: {login: "jhon", password: "jhon", firstName: "Jhon", lastName: "Doe"})
