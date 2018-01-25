@@ -20,13 +20,6 @@ module Ibanity
       all_by_uri(uri)
     end
 
-    def self.all_for_user(sandbox_user_id)
-      path = Ibanity.api_schema["sandbox"]["user"]["transactions"]
-        .gsub("{sandboxUserId}", sandbox_user_id)
-      uri = Ibanity.client.build_uri(path)
-      all_by_uri(uri)
-    end
-
     def self.find(id:, sandbox_user_id:, financial_institution_id:, sandbox_account_id:)
       path = Ibanity.api_schema["sandbox"]["transactions"]
         .gsub("{financialInstitutionId}", financial_institution_id)
