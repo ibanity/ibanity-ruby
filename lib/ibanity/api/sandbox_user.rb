@@ -6,9 +6,9 @@ module Ibanity
       create_by_uri(uri, "sandboxUser", attributes)
     end
 
-    def self.all
+    def self.list(**query_params)
       uri = Ibanity.api_schema["sandbox"]["users"].sub("{sandboxUserId}", "")
-      all_by_uri(uri)
+      list_by_uri(uri, query_params)
     end
 
     def self.find(id)

@@ -11,7 +11,7 @@ module Ibanity
       new(raw_item["data"], customer_access_token)
     end
 
-    def self.all_by_uri(uri, query_params = {}, customer_access_token = nil)
+    def self.list_by_uri(uri, query_params = {}, customer_access_token = nil)
       raw_items = Ibanity.client.get(uri, query_params, customer_access_token)
       raw_items["data"].map do |raw_item|
         new(raw_item, customer_access_token)
@@ -91,7 +91,7 @@ module Ibanity
           method_name  = Ibanity::Util.underscore(key)
           define_singleton_method(method_name) do
             uri = relationship["links"]["related"]
-            klass.all_by_uri(uri, customer_access_token)
+            klass.list_by_uri(uri, customer_access_token)
           end
         end
       end

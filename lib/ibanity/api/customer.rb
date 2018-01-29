@@ -1,8 +1,8 @@
 module Ibanity
   class Customer < Ibanity::BaseResource
-    def self.all
+    def self.list
       uri = Ibanity.api_schema["customers"].sub("{customerId}", "")
-      all_by_uri(uri)
+      list_by_uri(uri)
     end
 
     def self.find(id)

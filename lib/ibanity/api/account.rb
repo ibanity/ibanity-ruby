@@ -1,13 +1,16 @@
 module Ibanity
   class Account < Ibanity::BaseResource
-    def self.all_for_customer_in_financial_institution(financial_institution_id:, customer_access_token:)
-      uri = Ibanity.api_schema["customer"]["financialInstitution"]["accounts"].sub(
-        "{financialInstitutionId}", financial_institution_id
-      ).sub("{accountId}", "")
-      all_by_uri(uri, customer_access_token)
+    def self.list(financial_institution_id: nil, customer_access_token:, **query_params)
+      uri = if financial_institution_id
+          Ibanity.api_schema["customer"]["financialInstitution"]["accounts"].sub("{financialInstitutionId}", financial_institution_id).sub("{accountId}", "")
+        else
+          Ibanity.api_schema["customer"]["accounts"].sub("{accountId}", "")
+        end
+
+      list_by_uri(uri, query_params, customer_access_token)
     end
 
-    def self.get(id:, financial_institution_id:, customer_access_token:)
+    def self.find(id:, financial_institution_id:, customer_access_token:)
       uri = Ibanity.api_schema["customer"]["financialInstitution"]["accounts"]
         .sub("{financialInstitutionId}", financial_institution_id)
         .sub("{accountId}", id)

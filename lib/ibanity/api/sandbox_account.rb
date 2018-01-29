@@ -9,13 +9,13 @@ module Ibanity
       create_by_uri(uri, "sandboxAccount", attributes)
     end
 
-    def self.all(financial_institution_id:, sandbox_user_id:)
+    def self.list(financial_institution_id:, sandbox_user_id:, **query_params)
       path = Ibanity.api_schema["sandbox"]["accounts"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{sandboxUserId}", sandbox_user_id)
         .gsub("{sandboxAccountId}", "")
       uri = Ibanity.client.build_uri(path)
-      all_by_uri(uri)
+      list_by_uri(uri, query_params)
     end
 
     def self.find(id:, sandbox_user_id:, financial_institution_id:)

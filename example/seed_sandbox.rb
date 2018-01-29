@@ -43,10 +43,10 @@ sandbox_transaction = Ibanity::SandboxTransaction.create(
 )
 
 ap "---- Financial Institutions ------ "
-ap Ibanity::FinancialInstitution.all
+ap Ibanity::FinancialInstitution.list
 
 
-sandbox_users = Ibanity::SandboxUser.all
+sandbox_users = Ibanity::SandboxUser.list
 
 sandbox_users.each do |sandbox_user|
   ap "---- Sandbox User:  ------ "
@@ -62,11 +62,11 @@ sandbox_users.each do |sandbox_user|
   end
 end
 
-ap Ibanity::Customer.all
-ap Ibanity::Customer.all.first.accounts
-ap Ibanity::Customer.all.first.accounts.first.transactions
+ap Ibanity::Customer.list
+ap Ibanity::Customer.list.first.accounts
+ap Ibanity::Customer.list.first.accounts.first.transactions
 
-sandbox_user = Ibanity::SandboxUser.all.first
+sandbox_user = Ibanity::SandboxUser.list.first
 sandbox_account = sandbox_user.sandbox_accounts.first
 financial_institution = sandbox_account.financial_institution
 

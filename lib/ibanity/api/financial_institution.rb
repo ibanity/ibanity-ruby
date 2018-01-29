@@ -1,14 +1,14 @@
 module Ibanity
   class FinancialInstitution < Ibanity::BaseResource
-    def self.all
+    def self.list(**query_params)
       uri = Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", "")
-      all_by_uri(uri)
+      list_by_uri(uri, query_params)
     end
 
-    def self.all_for_customer(customer_access_token)
-      uri = Ibanity.api_schema["customer"]["financialInstitutions"]
-      all_by_uri(uri, customer_access_token)
-    end
+    # def self.all_for_customer(customer_access_token, **query_params)
+    #   uri = Ibanity.api_schema["customer"]["financialInstitutions"]
+    #   list_by_uri(uri, query_params = {}, customer_access_token)
+    # end
 
     def self.find(id)
       uri = Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", id)
