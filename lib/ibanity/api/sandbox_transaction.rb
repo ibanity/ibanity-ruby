@@ -1,6 +1,6 @@
 module Ibanity
   class SandboxTransaction < Ibanity::BaseResource
-    def self.create(sandbox_user_id:, financial_institution_id:, sandbox_account_id:, attributes:)
+    def self.create(sandbox_user_id:, financial_institution_id:, sandbox_account_id:, **attributes)
       path = Ibanity.api_schema["sandbox"]["transactions"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{sandboxUserId}", sandbox_user_id)

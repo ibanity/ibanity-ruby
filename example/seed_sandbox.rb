@@ -14,32 +14,29 @@ end
 sandbox_financial_institution = Ibanity::SandboxFinancialInstitution.create(name: "Fake Bank")
 ap sandbox_financial_institution
 
-sandbox_user = Ibanity::SandboxUser.create(attributes: {login: "jhon", password: "jhon", firstName: "Jhon", lastName: "Doe"})
+sandbox_user = Ibanity::SandboxUser.create(login: "jhon", password: "jhon", firstName: "Jhon", lastName: "Doe")
 
 sandbox_account = Ibanity::SandboxAccount.create(
   sandbox_user_id: sandbox_user.id,
   financial_institution_id: sandbox_financial_institution.id,
-  attributes: {
   subtype: "checking",
   relationship: "owner",
   iban: "BE123456679",
   description: "Checking account",
   currency: "EUR"
-})
+)
 ap sandbox_account
 
 sandbox_transaction = Ibanity::SandboxTransaction.create(
   sandbox_user_id: sandbox_user.id,
   financial_institution_id: sandbox_financial_institution.id,
   sandbox_account_id: sandbox_account.id,
-  attributes: {
-    valueDate: "2017-05-22T00:00:00Z",
-    executionDate: "2017-05-25T00:00:00Z",
-    counterpart: "BE9786154282554",
-    communication: "Small Cotton Shoes",
-    amount: 6.99,
-    currency: "EUR"
-  }
+  valueDate: "2017-05-22T00:00:00Z",
+  executionDate: "2017-05-25T00:00:00Z",
+  counterpart: "BE9786154282554",
+  communication: "Small Cotton Shoes",
+  amount: 6.99,
+  currency: "EUR"
 )
 
 ap "---- Financial Institutions ------ "
@@ -74,12 +71,10 @@ Ibanity::SandboxTransaction.create(
   sandbox_user_id: sandbox_user.id,
   financial_institution_id: financial_institution.id,
   sandbox_account_id: sandbox_account.id,
-  attributes: {
-    valueDate: "2017-05-22T00:00:00Z",
-    executionDate: "2017-05-25T00:00:00Z",
-    counterpart: "BE9786154282554",
-    communication: "Second Transaction",
-    amount: 100,
-    currency: "EUR"
-  }
+  valueDate: "2017-05-22T00:00:00Z",
+  executionDate: "2017-05-25T00:00:00Z",
+  counterpart: "BE9786154282554",
+  communication: "Second Transaction",
+  amount: 100,
+  currency: "EUR"
 )

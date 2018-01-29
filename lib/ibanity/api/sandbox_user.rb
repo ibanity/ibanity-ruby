@@ -16,7 +16,7 @@ module Ibanity
       find_by_uri(uri)
     end
 
-    def self.update(id:, attributes:)
+    def self.update(id:, **attributes)
       path = Ibanity.api_schema["sandbox"]["users"].sub("{sandboxUserId}", id)
       uri = Ibanity.client.build_uri(path)
       update_by_uri(uri, "sandboxUser", attributes)

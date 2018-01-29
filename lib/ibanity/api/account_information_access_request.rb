@@ -1,6 +1,6 @@
 module Ibanity
   class AccountInformationAccessRequest < Ibanity::BaseResource
-    def self.create_for_financial_institution(financial_institution_id:, attributes:, customer_access_token:)
+    def self.create_for_financial_institution(financial_institution_id:, customer_access_token:, **attributes)
       path = Ibanity.api_schema["customer"]["financialInstitution"]["accountInformationAccessRequests"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{accountInformationAccessRequestId}", "")
