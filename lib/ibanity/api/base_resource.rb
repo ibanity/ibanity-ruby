@@ -1,18 +1,18 @@
 module Ibanity
   class BaseResource < OpenStruct
-    def self.create_by_uri(uri, resource_type, attributes, access_token = nil)
+    def self.create_by_uri(uri, resource_type, attributes, customer_access_token = nil)
       payload = {
         data: {
           type:       resource_type,
           attributes: attributes
         }
       }
-      raw_item = Ibanity.client.post(uri, payload, {}, access_token)
-      new(raw_item["data"], access_token)
+      raw_item = Ibanity.client.post(uri, payload, {}, customer_access_token)
+      new(raw_item["data"], customer_access_token)
     end
 
-    def self.all_by_uri(uri, customer_access_token = nil)
-      raw_items = Ibanity.client.get(uri, {}, customer_access_token)
+    def self.all_by_uri(uri, query_params = {}, customer_access_token = nil)
+      raw_items = Ibanity.client.get(uri, query_params, customer_access_token)
       raw_items["data"].map do |raw_item|
         new(raw_item, customer_access_token)
       end
