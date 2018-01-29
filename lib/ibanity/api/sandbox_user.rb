@@ -1,6 +1,6 @@
 module Ibanity
   class SandboxUser < Ibanity::BaseResource
-    def self.create(attributes:)
+    def self.create(attributes)
       path     = Ibanity.api_schema["sandbox"]["users"].gsub("{sandboxUserId}", "")
       uri      = Ibanity.client.build_uri(path)
       create_by_uri(uri, "sandboxUser", attributes)
