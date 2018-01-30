@@ -68,7 +68,6 @@ module Ibanity
     def prepare_attributes(raw)
       base = {
         "id"  => raw["id"],
-        "uri" => raw["links"] && raw["links"]["self"]
       }
       attributes           = raw["attributes"]    || {}
       meta                 = raw["meta"]          || {}
