@@ -12,7 +12,7 @@ module Ibanity
       update_by_uri(uri, "financialInstitution", attributes)
     end
 
-    def self.delete(id)
+    def self.delete(id:)
       uri = Ibanity.api_schema["sandbox"]["financialInstitutions"].gsub("{financialInstitutionId}", id)
       destroy_by_uri(uri)
     end

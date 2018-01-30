@@ -10,7 +10,7 @@ module Ibanity
     #   list_by_uri(uri, query_params = {}, customer_access_token)
     # end
 
-    def self.find(id)
+    def self.find(id:)
       uri = Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", id)
       find_by_uri(uri)
     end

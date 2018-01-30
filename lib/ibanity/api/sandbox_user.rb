@@ -11,7 +11,7 @@ module Ibanity
       list_by_uri(uri, query_params)
     end
 
-    def self.find(id)
+    def self.find(id:)
       uri = Ibanity.api_schema["sandbox"]["users"].sub("{sandboxUserId}", id)
       find_by_uri(uri)
     end
@@ -22,7 +22,7 @@ module Ibanity
       update_by_uri(uri, "sandboxUser", attributes)
     end
 
-    def self.delete(id)
+    def self.delete(id:)
       uri = Ibanity.api_schema["sandbox"]["users"].sub("{sandboxUserId}", id)
       destroy_by_uri(uri)
     end
