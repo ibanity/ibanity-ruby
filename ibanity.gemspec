@@ -6,11 +6,11 @@ require 'ibanity/version'
 Gem::Specification.new do |spec|
   spec.name          = "ibanity"
   spec.version       = Ibanity::VERSION
-  spec.authors       = ["Lockey SPRL"]
+  spec.authors       = ["Ibanity"]
   spec.email         = ["info@ibanity.com"]
   spec.summary       = "Ibanity Ruby Client"
-  spec.description   = ""
-  spec.homepage      = "http://www.ibanity.com"
+  spec.description   = "A Ruby wrapper for the Ibanity API."
+  spec.homepage      = "https://documentation.ibanity.com/api/ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

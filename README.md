@@ -1,18 +1,24 @@
-# Ibanity Ruby Client
+# Ibanity Ruby Library
+
+The Ibanity Ruby Library provide convenient wrappers around the Ibanity API. The object attributes are dynamically defined based on the API response allowing to support minor API changes seamlessly.
 
 ## Documentation
 
 Visit our [Ruby API docs](https://documentation.ibanity.com/api/ruby).
 
-## Usage
-
-* Install
+## Installation
 
     ```
     gem install "ibanity"
     ```
 
-* Use
+### Requirements
+
+* Ruby 2.0+.
+
+## Usage
+
+* Usage
 
     Ibanity must be configured using the details of your application on the [Ibanity developer portal](https://developer.ibanity.com).
 
