@@ -1,13 +1,5 @@
 module Ibanity
   class Transaction < Ibanity::BaseResource
-    # def self.all_for_customer_account(customer_id, account_id, query_params = {})
-    #   uri = Ibanity.api_schema["customerAccountTransactions"]
-    #     .sub("{customerId}", customer_id)
-    #     .sub("{accountId}", account_id)
-    #     .sub("{transactionId}", "")
-    #   list_by_uri(uri, query_params)
-    # end
-
     def self.list(financial_institution_id:, account_id:, customer_access_token:, **query_params)
       uri = Ibanity.api_schema["customer"]["financialInstitution"]["transactions"]
         .sub("{financialInstitutionId}", financial_institution_id)
