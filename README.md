@@ -1,6 +1,6 @@
 # Ibanity Ruby Library
 
-The Ibanity Ruby Library provide convenient wrappers around the Ibanity API. The object attributes are dynamically defined based on the API response allowing to support minor API changes seamlessly.
+The Ibanity Ruby Library provides convenient wrappers around the Ibanity API. The object attributes are dynamically defined based on the API response, supporting minor API changes seamlessly.
 
 ## Documentation
 
