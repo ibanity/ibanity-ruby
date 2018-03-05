@@ -17,6 +17,7 @@ require_relative "ibanity/api/sandbox_transaction"
 require_relative "ibanity/api/sandbox_user"
 require_relative "ibanity/api/sandbox_financial_institution"
 require_relative "ibanity/api/customer_access_token"
+require_relative "ibanity/api/payment_initiation_request"
 
 module Ibanity
   class << self
