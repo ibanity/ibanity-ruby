@@ -8,9 +8,9 @@ Visit our [Ruby API docs](https://documentation.ibanity.com/api/ruby).
 
 ## Installation
 
-    ```
-    gem install "ibanity"
-    ```
+```
+gem install "ibanity"
+```
 
 ### Requirements
 
