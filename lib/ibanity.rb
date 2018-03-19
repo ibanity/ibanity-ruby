@@ -27,6 +27,7 @@ module Ibanity
     end
 
     def configure
+      @client = nil
       yield configuration
     end
 
