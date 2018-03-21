@@ -3,10 +3,12 @@ require "openssl"
 require "uri"
 require "rest_client"
 require "json"
+require "securerandom"
 
 require_relative "ibanity/util"
 require_relative "ibanity/error"
 require_relative "ibanity/client"
+require_relative "ibanity/http_signature"
 require_relative "ibanity/api/base_resource"
 require_relative "ibanity/api/account"
 require_relative "ibanity/api/transaction"
@@ -36,6 +38,10 @@ module Ibanity
         :certificate,
         :key,
         :key_passphrase,
+        :signature_certificate,
+        :signature_certificate_id,
+        :signature_key,
+        :signature_key_passphrase,
         :api_scheme,
         :api_host,
         :api_port,
@@ -44,7 +50,7 @@ module Ibanity
     end
 
     def api_schema
-      @api_schema ||= client.get(client.base_uri)["links"]
+      @api_schema ||= client.get(uri: client.base_uri)["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)

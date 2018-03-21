@@ -5,7 +5,7 @@ module Ibanity
         .sub("{financialInstitutionId}", financial_institution_id)
         .sub("{accountId}", account_id)
         .sub("{transactionId}", "")
-      list_by_uri(uri, query_params, customer_access_token)
+      list_by_uri(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
     end
 
     def self.find(id:, financial_institution_id:, account_id:, customer_access_token:)
@@ -13,7 +13,7 @@ module Ibanity
         .sub("{financialInstitutionId}", financial_institution_id)
         .sub("{accountId}", account_id)
         .sub("{transactionId}", id)
-      find_by_uri(uri, customer_access_token)
+      find_by_uri(uri: uri, customer_access_token: customer_access_token)
     end
   end
 end
