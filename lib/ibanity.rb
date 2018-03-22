@@ -29,7 +29,9 @@ module Ibanity
     end
 
     def configure
-      @client = nil
+      @client        = nil
+      @api_schema    = nil
+      @configuration = nil
       yield configuration
     end
 
