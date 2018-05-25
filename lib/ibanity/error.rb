@@ -9,10 +9,13 @@ module Ibanity
     def to_s
       if @errors && @errors.size > 0
         @errors.map do |error|
-          if error["attribute"]
-            "* #{error["code"]}: '#{error["attribute"]}' #{error["message"]}"
+          p error
+          if error["meta"] && error["meta"]["attribute"]
+            "* #{error["code"]}: '#{error["meta"]["attribute"]}' #{error["detail"]}"
+          elsif error["meta"] && error["meta"]["resource"]
+            "* #{error["code"]}: '#{error["meta"]["resource"]}' #{error["detail"]}"
           else
-            "* #{error["code"]}: #{error["message"]}"
+            "* #{error["code"]}: #{error["detail"]}"
           end
         end.join("\n")
       else

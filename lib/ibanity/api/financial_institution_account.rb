@@ -5,7 +5,6 @@ module Ibanity
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{financialInstitutionUserId}", financial_institution_user_id)
         .gsub("{financialInstitutionAccountId}", "")
-      puts path
       uri = Ibanity.client.build_uri(path)
       create_by_uri(uri: uri, resource_type: "financialInstitutionAccount", attributes: attributes, idempotency_key: idempotency_key)
     end
