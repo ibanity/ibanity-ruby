@@ -17,7 +17,6 @@ require_relative "ibanity/api/account_information_access_request"
 require_relative "ibanity/api/financial_institution_account"
 require_relative "ibanity/api/financial_institution_transaction"
 require_relative "ibanity/api/financial_institution_user"
-require_relative "ibanity/api/sandbox_financial_institution"
 require_relative "ibanity/api/customer_access_token"
 require_relative "ibanity/api/payment_initiation_request"
 
