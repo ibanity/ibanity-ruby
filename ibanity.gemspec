@@ -5,7 +5,7 @@ require 'ibanity/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ibanity"
-  spec.version       = Ibanity::VERSION
+  spec.version       = Ibanity::VERSION.dup
   spec.authors       = ["Ibanity"]
   spec.email         = ["info@ibanity.com"]
   spec.summary       = "Ibanity Ruby Client"
