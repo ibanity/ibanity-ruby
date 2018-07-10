@@ -1,16 +1,20 @@
 module Ibanity
   class AccountInformationAccessRequest < Ibanity::BaseResource
-    def self.create_for_financial_institution(financial_institution_id:, customer_access_token:, idempotency_key: nil, **attributes)
+    def self.create_for_financial_institution(financial_institution_id:, customer_access_token:, idempotency_key: nil, locale: nil, **attributes)
       path = Ibanity.api_schema["customer"]["financialInstitution"]["accountInformationAccessRequests"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{accountInformationAccessRequestId}", "")
       uri = Ibanity.client.build_uri(path)
+      meta = {
+        locale: locale
+      }
       create_by_uri(
         uri: uri,
         resource_type: "accountInformationAccessRequest",
         attributes: attributes,
         customer_access_token: customer_access_token,
-        idempotency_key: idempotency_key
+        idempotency_key: idempotency_key,
+        meta: meta
       )
     end
   end
