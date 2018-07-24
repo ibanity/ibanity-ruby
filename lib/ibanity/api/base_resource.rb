@@ -1,12 +1,13 @@
 module Ibanity
   class BaseResource < OpenStruct
-    def self.create_by_uri(uri:, resource_type:, attributes:, customer_access_token: nil, idempotency_key: nil)
+    def self.create_by_uri(uri:, resource_type:, attributes:, customer_access_token: nil, idempotency_key: nil, meta: nil)
       payload = {
         data: {
           type:       resource_type,
           attributes: attributes
         }
       }
+      payload[:data][:meta] = meta if meta
       raw_item = Ibanity.client.post(uri: uri, payload: payload, customer_access_token: customer_access_token, idempotency_key: idempotency_key)
       new(raw_item["data"], customer_access_token)
     end
