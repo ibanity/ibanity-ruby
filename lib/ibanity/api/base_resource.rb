@@ -13,10 +13,17 @@ module Ibanity
     end
 
     def self.list_by_uri(uri:, query_params: {}, customer_access_token: nil)
-      raw_items = Ibanity.client.get(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
-      raw_items["data"].map do |raw_item|
+      raw_response = Ibanity.client.get(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
+      items        = raw_response["data"].map do |raw_item|
         new(raw_item, customer_access_token)
       end
+      Ibanity::Collection.new(
+        klass:                 self,
+        items:                 items,
+        paging:                raw_response.dig("meta", "paging"),
+        links:                 raw_response["links"],
+        customer_access_token: customer_access_token
+      )
     end
 
     def self.find_by_uri(uri:, customer_access_token: nil)
@@ -81,7 +88,7 @@ module Ibanity
         if relationship["data"]
           klass = Ibanity.const_get(Ibanity::Util.camelize(key))
           method_name = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do
+          define_singleton_method(method_name) do |**query_params|
             klass.find_by_uri(uri: relationship["links"]["related"], customer_access_token: customer_access_token)
           end
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
@@ -89,9 +96,9 @@ module Ibanity
           singular_key = key[0..-2]
           klass        = Ibanity.const_get(Ibanity::Util.camelize(singular_key))
           method_name  = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do
+          define_singleton_method(method_name) do |**query_params|
             uri = relationship["links"]["related"]
-            klass.list_by_uri(uri: uri, customer_access_token: customer_access_token)
+            klass.list_by_uri(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
           end
         end
       end

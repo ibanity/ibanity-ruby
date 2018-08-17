@@ -7,6 +7,7 @@ require "securerandom"
 
 require_relative "ibanity/util"
 require_relative "ibanity/error"
+require_relative "ibanity/collection"
 require_relative "ibanity/client"
 require_relative "ibanity/http_signature"
 require_relative "ibanity/api/base_resource"
