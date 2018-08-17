@@ -88,7 +88,7 @@ module Ibanity
         if relationship["data"]
           klass = Ibanity.const_get(Ibanity::Util.camelize(key))
           method_name = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do |**query_params|
+          define_singleton_method(method_name) do
             klass.find_by_uri(uri: relationship["links"]["related"], customer_access_token: customer_access_token)
           end
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
