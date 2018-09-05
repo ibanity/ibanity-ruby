@@ -15,23 +15,23 @@ module Ibanity
       @ssl_ca_file           = ssl_ca_file
     end
 
-    def get(uri:, query_params: {}, customer_access_token: nil)
-      headers = build_headers(customer_access_token)
+    def get(uri:, query_params: {}, customer_access_token: nil, headers: nil)
+      headers = build_headers(customer_access_token: customer_access_token, extra_headers: headers)
       execute(method: :get, uri: uri, headers: headers, query_params: query_params)
     end
 
     def post(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil)
-      headers = build_headers(customer_access_token, idempotency_key)
+      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key)
       execute(method: :post, uri: uri, headers: headers, query_params: query_params, payload: payload)
     end
 
     def patch(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil)
-      headers = build_headers(customer_access_token, idempotency_key)
+      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key)
       execute(method: :patch, uri: uri, headers: headers, query_params: query_params, payload: payload)
     end
 
     def delete(uri:, query_params: {}, customer_access_token: nil)
-      headers = build_headers(customer_access_token)
+      headers = build_headers(customer_access_token: customer_access_token)
       execute(method: :delete, uri: uri, headers: headers, query_params: query_params)
     end
 
@@ -41,7 +41,7 @@ module Ibanity
 
     private
 
-    def execute(method:, uri:, headers:, query_params: {}, payload: nil, idempotency_key: nil)
+    def execute(method:, uri:, headers:, query_params: {}, payload: nil)
       if @signature_certificate
         signature = Ibanity::HttpSignature.new(
           certificate: @signature_certificate,
@@ -75,14 +75,18 @@ module Ibanity
       JSON.parse(raw_response)
     end
 
-    def build_headers(customer_access_token = nil, idempotency_key = nil)
+    def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil)
       headers = {
         content_type:  :json,
         accept:        :json,
       }
       headers["Authorization"]           = "Bearer #{customer_access_token}" unless customer_access_token.nil?
       headers["Ibanity-Idempotency-Key"] = idempotency_key unless idempotency_key.nil?
-      headers
+      if extra_headers.nil?
+        headers
+      else
+        headers.merge(extra_headers)
+      end
     end
   end
 end
