@@ -12,26 +12,27 @@ module Ibanity
       new(raw_item["data"], customer_access_token)
     end
 
-    def self.list_by_uri(uri:, query_params: {}, customer_access_token: nil)
-      raw_response = Ibanity.client.get(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
+    def self.list_by_uri(uri:, query_params: {}, customer_access_token: nil, headers: nil)
+      raw_response = Ibanity.client.get(uri: uri, query_params: query_params, headers: headers, customer_access_token: customer_access_token)
       items        = raw_response["data"].map do |raw_item|
         new(raw_item, customer_access_token)
       end
       Ibanity::Collection.new(
-        klass:                 self,
-        items:                 items,
-        paging:                raw_response.dig("meta", "paging"),
-        links:                 raw_response["links"],
-        customer_access_token: customer_access_token
+        klass:                  self,
+        items:                  items,
+        links:                  raw_response["links"],
+        paging:                 raw_response.dig("meta", "paging"),
+        synchronized_at:        raw_response.dig("meta", "synchronizedAt"),
+        latest_synchronization: raw_response.dig("meta", "latestSynchronization"),
       )
     end
 
-    def self.find_by_uri(uri:, customer_access_token: nil)
-      new(find_raw_by_uri(uri: uri, customer_access_token: customer_access_token), customer_access_token)
+    def self.find_by_uri(uri:, customer_access_token: nil, headers: nil)
+      new(find_raw_by_uri(uri: uri, customer_access_token: customer_access_token, headers: headers), customer_access_token)
     end
 
-    def self.find_raw_by_uri(uri:, customer_access_token: nil)
-      raw_item = Ibanity.client.get(uri: uri, customer_access_token: customer_access_token)
+    def self.find_raw_by_uri(uri:, customer_access_token: nil, headers: nil)
+      raw_item = Ibanity.client.get(uri: uri, customer_access_token: customer_access_token, headers: headers)
       raw_item["data"]
     end
 
@@ -60,6 +61,8 @@ module Ibanity
 
       links = raw["links"] || {}
       setup_links(links)
+
+      meta = raw["meta"] || {}
     end
 
     def reload!
@@ -88,17 +91,17 @@ module Ibanity
         if relationship["data"]
           klass = Ibanity.const_get(Ibanity::Util.camelize(key))
           method_name = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do
-            klass.find_by_uri(uri: relationship["links"]["related"], customer_access_token: customer_access_token)
+          define_singleton_method(method_name) do |headers: nil|
+            klass.find_by_uri(uri: relationship["links"]["related"], headers: headers, customer_access_token: customer_access_token)
           end
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
         else
           singular_key = key[0..-2]
           klass        = Ibanity.const_get(Ibanity::Util.camelize(singular_key))
           method_name  = Ibanity::Util.underscore(key)
-          define_singleton_method(method_name) do |**query_params|
+          define_singleton_method(method_name) do |headers: nil, **query_params|
             uri = relationship["links"]["related"]
-            klass.list_by_uri(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
+            klass.list_by_uri(uri: uri, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
           end
         end
       end
