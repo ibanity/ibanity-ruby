@@ -1,8 +1,12 @@
 module Ibanity
   class FinancialInstitution < Ibanity::BaseResource
-    def self.list(**query_params)
-      uri = Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", "")
-      list_by_uri(uri: uri, query_params: query_params)
+    def self.list(customer_access_token: nil, **query_params)
+      uri = if customer_access_token.nil?
+        Ibanity.api_schema["financialInstitutions"].sub("{financialInstitutionId}", "")
+      else
+        Ibanity.api_schema["customer"]["financialInstitutions"].sub("{financialInstitutionId}", "")
+      end
+      list_by_uri(uri: uri, query_params: query_params, customer_access_token: customer_access_token)
     end
 
     def self.find(id:)
