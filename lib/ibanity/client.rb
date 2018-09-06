@@ -85,7 +85,7 @@ module Ibanity
       if extra_headers.nil?
         headers
       else
-        headers.merge(extra_headers)
+        extra_headers.merge(headers)
       end
     end
   end
