@@ -52,6 +52,10 @@ module Ibanity
       new(raw_item["data"])
     end
 
+    def self.find_file_by_uri(uri:, customer_access_token: nil, headers: nil)
+      Ibanity.client.get(uri: uri, customer_access_token: customer_access_token, headers: headers)
+    end
+
     def initialize(raw, customer_access_token = nil)
       attributes = prepare_attributes(raw)
       super(attributes)

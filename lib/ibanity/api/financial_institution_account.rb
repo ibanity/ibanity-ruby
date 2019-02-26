@@ -1,7 +1,7 @@
 module Ibanity
   class FinancialInstitutionAccount < Ibanity::BaseResource
     def self.create(financial_institution_user_id:, financial_institution_id:, idempotency_key: nil, **attributes)
-      path = Ibanity.api_schema["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
+      path = Ibanity.api_schema[:xs2a]["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{financialInstitutionUserId}", financial_institution_user_id)
         .gsub("{financialInstitutionAccountId}", "")
@@ -10,7 +10,7 @@ module Ibanity
     end
 
     def self.list(financial_institution_id:, financial_institution_user_id:, **query_params)
-      path = Ibanity.api_schema["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
+      path = Ibanity.api_schema[:xs2a]["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{financialInstitutionUserId}", financial_institution_user_id)
         .gsub("{financialInstitutionAccountId}", "")
@@ -19,7 +19,7 @@ module Ibanity
     end
 
     def self.find(id:, financial_institution_user_id:, financial_institution_id:)
-      path = Ibanity.api_schema["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
+      path = Ibanity.api_schema[:xs2a]["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{financialInstitutionUserId}", financial_institution_user_id)
         .gsub("{financialInstitutionAccountId}", id)
@@ -28,7 +28,7 @@ module Ibanity
     end
 
     def self.delete(id:, financial_institution_user_id:, financial_institution_id:)
-      path = Ibanity.api_schema["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
+      path = Ibanity.api_schema[:xs2a]["sandbox"]["financialInstitution"]["financialInstitutionAccounts"]
         .gsub("{financialInstitutionId}", financial_institution_id)
         .gsub("{financialInstitutionUserId}", financial_institution_user_id)
         .gsub("{financialInstitutionAccountId}", id)

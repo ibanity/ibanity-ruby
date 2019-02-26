@@ -15,6 +15,13 @@ require_relative "ibanity/api/account"
 require_relative "ibanity/api/transaction"
 require_relative "ibanity/api/financial_institution"
 require_relative "ibanity/api/account_information_access_request"
+require_relative "ibanity/api/o_auth_resource"
+require_relative "ibanity/api/isabel_connect/account"
+require_relative "ibanity/api/isabel_connect/balance"
+require_relative "ibanity/api/isabel_connect/transaction"
+require_relative "ibanity/api/isabel_connect/account_report"
+require_relative "ibanity/api/isabel_connect/access_token"
+require_relative "ibanity/api/isabel_connect/refresh_token"
 require_relative "ibanity/api/financial_institution_account"
 require_relative "ibanity/api/financial_institution_transaction"
 require_relative "ibanity/api/financial_institution_user"
@@ -46,6 +53,8 @@ module Ibanity
         :signature_certificate_id,
         :signature_key,
         :signature_key_passphrase,
+        :client_id,
+        :client_secret,
         :api_scheme,
         :api_host,
         :api_port,
@@ -54,7 +63,10 @@ module Ibanity
     end
 
     def api_schema
-      @api_schema ||= client.get(uri: client.base_uri)["links"]
+      @api_schema ||= {
+        xs2a: client.get(uri: "#{client.base_uri}")["links"],
+        isabel_connect: client.get(uri: "#{client.base_uri}")["links"]["isabel_connect"]
+      }
     end
 
     def respond_to_missing?(method_name, include_private = false)

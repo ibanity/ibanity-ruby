@@ -1,7 +1,7 @@
 module Ibanity
   class Transaction < Ibanity::BaseResource
     def self.list(financial_institution_id:, account_id:, customer_access_token:, headers: nil,  **query_params)
-      uri = Ibanity.api_schema["customer"]["financialInstitution"]["transactions"]
+      uri = Ibanity.api_schema[:xs2a]["customer"]["financialInstitution"]["transactions"]
         .sub("{financialInstitutionId}", financial_institution_id)
         .sub("{accountId}", account_id)
         .sub("{transactionId}", "")
@@ -9,7 +9,7 @@ module Ibanity
     end
 
     def self.find(id:, financial_institution_id:, account_id:, customer_access_token:)
-      uri = Ibanity.api_schema["customer"]["financialInstitution"]["transactions"]
+      uri = Ibanity.api_schema[:xs2a]["customer"]["financialInstitution"]["transactions"]
         .sub("{financialInstitutionId}", financial_institution_id)
         .sub("{accountId}", account_id)
         .sub("{transactionId}", id)
