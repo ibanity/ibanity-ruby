@@ -11,10 +11,14 @@ require_relative "ibanity/collection"
 require_relative "ibanity/client"
 require_relative "ibanity/http_signature"
 require_relative "ibanity/api/base_resource"
-require_relative "ibanity/api/account"
-require_relative "ibanity/api/transaction"
-require_relative "ibanity/api/financial_institution"
-require_relative "ibanity/api/account_information_access_request"
+require_relative "ibanity/api/xs2a/account"
+require_relative "ibanity/api/xs2a/transaction"
+require_relative "ibanity/api/xs2a/financial_institution"
+require_relative "ibanity/api/xs2a/account_information_access_request"
+require_relative "ibanity/api/xs2a/customer_access_token"
+require_relative "ibanity/api/xs2a/customer"
+require_relative "ibanity/api/xs2a/payment_initiation_request"
+require_relative "ibanity/api/xs2a/synchronization"
 require_relative "ibanity/api/o_auth_resource"
 require_relative "ibanity/api/isabel_connect/account"
 require_relative "ibanity/api/isabel_connect/balance"
@@ -22,13 +26,9 @@ require_relative "ibanity/api/isabel_connect/transaction"
 require_relative "ibanity/api/isabel_connect/account_report"
 require_relative "ibanity/api/isabel_connect/access_token"
 require_relative "ibanity/api/isabel_connect/refresh_token"
-require_relative "ibanity/api/financial_institution_account"
-require_relative "ibanity/api/financial_institution_transaction"
-require_relative "ibanity/api/financial_institution_user"
-require_relative "ibanity/api/customer_access_token"
-require_relative "ibanity/api/customer"
-require_relative "ibanity/api/payment_initiation_request"
-require_relative "ibanity/api/synchronization"
+require_relative "ibanity/api/sandbox/financial_institution_account"
+require_relative "ibanity/api/sandbox/financial_institution_transaction"
+require_relative "ibanity/api/sandbox/financial_institution_user"
 
 module Ibanity
   class << self
@@ -63,10 +63,7 @@ module Ibanity
     end
 
     def api_schema
-      @api_schema ||= {
-        xs2a: client.get(uri: "#{client.base_uri}")["links"],
-        isabel_connect: client.get(uri: "#{client.base_uri}")["links"]["isabel_connect"]
-      }
+      @api_schema ||= client.get(uri: client.base_uri)["links"]
     end
 
     def isabel_connect_schema

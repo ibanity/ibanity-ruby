@@ -93,7 +93,7 @@ module Ibanity
     def setup_relationships(relationships, customer_access_token = nil)
       relationships.each do |key, relationship|
         if relationship["data"]
-          klass = Ibanity.const_get(Ibanity::Util.camelize(key))
+          klass = relationship_klass(key)
           method_name = Ibanity::Util.underscore(key)
           define_singleton_method(method_name) do |headers: nil|
             klass.find_by_uri(uri: relationship["links"]["related"], headers: headers, customer_access_token: customer_access_token)
@@ -101,7 +101,7 @@ module Ibanity
           self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
         else
           singular_key = key[0..-2]
-          klass        = Ibanity.const_get(Ibanity::Util.camelize(singular_key))
+          klass        = relationship_klass(singular_key)
           method_name  = Ibanity::Util.underscore(key)
           define_singleton_method(method_name) do |headers: nil, **query_params|
             uri = relationship["links"]["related"]
@@ -115,6 +115,16 @@ module Ibanity
       links.each do |key, link|
         self[Ibanity::Util.underscore("#{key}_link")] = link
       end
+    end
+
+    def relationship_klass(name)
+      camelized_name = Ibanity::Util.camelize(name)
+      enclosing_module = if camelized_name == "FinancialInstitution"
+        Ibanity::Xs2a
+      else
+        Object.const_get(self.class.to_s.split("::")[0...-1].join("::"))
+      end
+      enclosing_module.const_get(camelized_name)
     end
   end
 end
