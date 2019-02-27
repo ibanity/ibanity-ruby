@@ -76,7 +76,7 @@ module Ibanity
       end
       JSON.parse(raw_response)
     rescue JSON::ParserError => e
-      return raw_response
+      return raw_response.body
     end
 
     def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:)
