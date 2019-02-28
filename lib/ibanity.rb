@@ -62,12 +62,12 @@ module Ibanity
       ).new
     end
 
-    def api_schema
-      @api_schema ||= client.get(uri: client.base_uri)["links"]
+    def xs2a_api_schema
+      @xs2a_api_schema ||= client.get(uri: "#{client.base_uri}")["links"]
     end
 
-    def isabel_connect_schema
-      @isabel_connect_schema ||= client.get(uri: "#{client.base_uri}/isabel-connect")["links"]
+    def isabel_connect_api_schema
+      @isabel_connect_api_schema ||= client.get(uri: "#{client.base_uri}/isabel-connect")["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)

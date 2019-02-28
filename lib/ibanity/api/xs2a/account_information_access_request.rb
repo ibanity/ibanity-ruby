@@ -2,7 +2,7 @@ module Ibanity
   module Xs2a
     class AccountInformationAccessRequest < Ibanity::BaseResource
       def self.create_for_financial_institution(financial_institution_id:, customer_access_token:, idempotency_key: nil, meta: nil, **attributes)
-        path = Ibanity.api_schema["customer"]["financialInstitution"]["accountInformationAccessRequests"]
+        path = Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["accountInformationAccessRequests"]
           .gsub("{financialInstitutionId}", financial_institution_id)
           .gsub("{accountInformationAccessRequestId}", "")
         uri = Ibanity.client.build_uri(path)

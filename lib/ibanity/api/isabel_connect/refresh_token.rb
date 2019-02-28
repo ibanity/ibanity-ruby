@@ -2,7 +2,7 @@ module Ibanity
   module IsabelConnect
     class RefreshToken < Ibanity::OAuthResource
       def self.create(authorization_code:, idempotency_key: nil)
-        uri = Ibanity.isabel_connect_schema["refreshToken"]["create"]
+        uri = Ibanity.isabel_connect_api_schema["oAuth2"]["refreshTokens"]["create"]
         arguments = [
           ["grant_type", "authorization_code"],
           ["code", authorization_code],
@@ -15,7 +15,7 @@ module Ibanity
       end
 
       def self.delete(token:)
-        uri = Ibanity.isabel_connect_schema["refreshToken"]["revoke"]
+        uri = Ibanity.isabel_connect_api_schema["oAuth2"]["refreshTokens"]["revoke"]
         arguments = [
           ["token", token],
           ["client_id", Ibanity.client.client_id],

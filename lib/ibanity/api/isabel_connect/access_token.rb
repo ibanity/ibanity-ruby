@@ -2,7 +2,7 @@ module Ibanity
   module IsabelConnect
     class AccessToken < Ibanity::OAuthResource
       def self.create(refresh_token:, idempotency_key: nil)
-        uri = Ibanity.isabel_connect_schema["accessToken"]
+        uri = Ibanity.isabel_connect_api_schema["oAuth2"]["accessTokens"]
         arguments = [
           ["grant_type", "refresh_token"],
           ["refresh_token", refresh_token],
