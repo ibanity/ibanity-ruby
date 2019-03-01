@@ -65,7 +65,7 @@ module Ibanity
     end
 
     def xs2a_api_schema
-      @xs2a_api_schema ||= client.get(uri: "#{client.base_uri}")["links"]
+      @xs2a_api_schema ||= client.get(uri: "#{client.base_uri}/xs2a")["links"]
     end
 
     def sandbox_api_schema
