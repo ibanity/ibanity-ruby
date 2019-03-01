@@ -38,9 +38,11 @@ module Ibanity
     end
 
     def configure
-      @client        = nil
-      @api_schema    = nil
-      @configuration = nil
+      @client                    = nil
+      @xs2a_api_schema           = nil
+      @isabel_connect_api_schema = nil
+      @sandbox_api_schema        = nil
+      @configuration             = nil
       yield configuration
     end
 
@@ -64,6 +66,10 @@ module Ibanity
 
     def xs2a_api_schema
       @xs2a_api_schema ||= client.get(uri: "#{client.base_uri}")["links"]
+    end
+
+    def sandbox_api_schema
+      @sandbox_api_schema ||= client.get(uri: "#{client.base_uri}/sandbox")["links"]
     end
 
     def isabel_connect_api_schema
