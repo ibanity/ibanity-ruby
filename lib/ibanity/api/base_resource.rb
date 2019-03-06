@@ -56,6 +56,11 @@ module Ibanity
       Ibanity.client.get(uri: uri, customer_access_token: customer_access_token, headers: headers)
     end
 
+    def self.create_file_by_uri(uri:, resource_type:, file:, customer_access_token: nil, idempotency_key: nil, headers: nil)
+      raw_item = Ibanity.client.post(uri: uri, payload: File.read(file), customer_access_token: customer_access_token, idempotency_key: idempotency_key, json: false, headers: headers)
+      new(raw_item["data"], customer_access_token)
+    end
+
     def initialize(raw, customer_access_token = nil)
       attributes = prepare_attributes(raw)
       super(attributes)

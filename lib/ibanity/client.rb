@@ -22,8 +22,8 @@ module Ibanity
       execute(method: :get, uri: uri, headers: headers, query_params: query_params, json: json)
     end
 
-    def post(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil, json: true)
-      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, json: json)
+    def post(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil, json: true, headers: nil)
+      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, extra_headers: headers, json: json)
       execute(method: :post, uri: uri, headers: headers, query_params: query_params, payload: payload, json: json)
     end
 
@@ -89,7 +89,7 @@ module Ibanity
       if extra_headers.nil?
         headers
       else
-        extra_headers.merge(headers)
+        headers.merge(extra_headers)
       end
     end
   end

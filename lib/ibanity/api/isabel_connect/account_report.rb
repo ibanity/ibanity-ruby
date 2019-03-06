@@ -8,7 +8,7 @@ module Ibanity
 
       def self.find(id:, access_token:)
         uri = Ibanity.isabel_connect_api_schema["accountReports"].sub("{accountReportId}", id)
-        find_file_by_uri(uri: uri, customer_access_token: access_token)
+        find_file_by_uri(uri: uri, customer_access_token: access_token, headers: { accept: "text/plain" })
       end
     end
   end
