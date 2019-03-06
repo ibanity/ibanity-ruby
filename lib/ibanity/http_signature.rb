@@ -1,3 +1,5 @@
+require "base64"
+
 module Ibanity
   class HttpSignature
     def initialize(certificate:, certificate_id:, key:, method:, uri:, query_params:, headers:, payload:)

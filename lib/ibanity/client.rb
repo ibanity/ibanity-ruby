@@ -53,7 +53,7 @@ module Ibanity
           uri: uri,
           query_params: query_params,
           headers: headers,
-          payload: payload
+          payload: payload && json ? payload.to_json : payload,
         )
         headers.merge!(signature.signature_headers)
       end
