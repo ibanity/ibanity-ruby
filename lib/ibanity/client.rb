@@ -46,14 +46,14 @@ module Ibanity
     def execute(method:, uri:, headers:, query_params: {}, payload: nil, json:)
       if @signature_certificate
         signature = Ibanity::HttpSignature.new(
-          certificate: @signature_certificate,
+          certificate:    @signature_certificate,
           certificate_id: @signature_certificate_id,
-          key: @signature_key,
-          method: method,
-          uri: uri,
-          query_params: query_params,
-          headers: headers,
-          payload: payload && json ? payload.to_json : payload,
+          key:            @signature_key,
+          method:         method,
+          uri:            uri,
+          query_params:   query_params,
+          headers:        headers,
+          payload:        payload && json ? payload.to_json : payload
         )
         headers.merge!(signature.signature_headers)
       end
@@ -83,7 +83,7 @@ module Ibanity
       headers = {
         accept: :json,
       }
-      headers[:content_type] = :json if json
+      headers[:content_type]             = :json if json
       headers["Authorization"]           = "Bearer #{customer_access_token}" unless customer_access_token.nil?
       headers["Ibanity-Idempotency-Key"] = idempotency_key unless idempotency_key.nil?
       if extra_headers.nil?
