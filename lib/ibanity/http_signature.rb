@@ -1,3 +1,5 @@
+require "base64"
+
 module Ibanity
   class HttpSignature
     def initialize(certificate:, certificate_id:, key:, method:, uri:, query_params:, headers:, payload:)
@@ -13,7 +15,7 @@ module Ibanity
 
     def payload_digest
       digest         = OpenSSL::Digest::SHA512.new
-      string_payload = @payload.nil? ? "" : @payload.to_json
+      string_payload = @payload.nil? ? "" : @payload
       digest.update(string_payload)
       base64 = Base64.urlsafe_encode64(digest.digest)
       "SHA-512=#{base64}"

@@ -3,6 +3,8 @@ module Ibanity
     attr_accessor :page_limit,
       :before_cursor,
       :after_cursor,
+      :offset,
+      :total,
       :first_link,
       :next_link,
       :previous_link,
@@ -23,6 +25,8 @@ module Ibanity
       @page_limit             = paging["limit"]
       @before_cursor          = paging["before"]
       @after_cursor           = paging["after"]
+      @offset                 = paging["offset"]
+      @total                  = paging["total"]
       @first_link             = links["first"]
       @next_link              = links["next"]
       @previous_link          = links["prev"]
