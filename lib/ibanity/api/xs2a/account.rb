@@ -1,8 +1,13 @@
 module Ibanity
   module Xs2a
     class Account < Ibanity::BaseResource
-      def self.list(financial_institution_id: nil, customer_access_token:, headers: nil, **query_params)
-        uri = if financial_institution_id
+      def self.list(financial_institution_id: nil, account_information_access_request_id: nil, customer_access_token:, headers: nil, **query_params)
+        uri = if account_information_access_request_id
+          Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["accountInformationAccessRequest"]["accounts"]
+            .sub("{financialInstitutionId}", financial_institution_id)
+            .sub("{accountInformationAccessRequestId}", account_information_access_request_id)
+            .sub("{accountId}", "")
+        elsif financial_institution_id
           Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["accounts"].sub("{financialInstitutionId}", financial_institution_id).sub("{accountId}", "")
         else
           Ibanity.xs2a_api_schema["customer"]["accounts"].sub("{accountId}", "")

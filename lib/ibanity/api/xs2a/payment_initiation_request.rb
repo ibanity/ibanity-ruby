@@ -21,6 +21,13 @@ module Ibanity
           .sub("{paymentInitiationRequestId}", id)
         find_by_uri(uri: uri, customer_access_token: customer_access_token)
       end
+
+      def self.delete(id:, financial_institution_id:, customer_access_token:)
+        uri = Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["paymentInitiationRequests"]
+          .gsub("{financialInstitutionId}", financial_institution_id)
+          .sub("{paymentInitiationRequestId}", id)
+        destroy_by_uri(uri: uri, customer_access_token: customer_access_token)
+      end
     end
   end
 end
