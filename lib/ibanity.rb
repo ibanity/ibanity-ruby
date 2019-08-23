@@ -31,6 +31,11 @@ require_relative "ibanity/api/isabel_connect/bulk_payment_initiation_request"
 require_relative "ibanity/api/sandbox/financial_institution_account"
 require_relative "ibanity/api/sandbox/financial_institution_transaction"
 require_relative "ibanity/api/sandbox/financial_institution_user"
+require_relative "ibanity/api/ponto_connect/token"
+require_relative "ibanity/api/ponto_connect/financial_institution"
+require_relative "ibanity/api/ponto_connect/account"
+require_relative "ibanity/api/ponto_connect/transaction"
+require_relative "ibanity/api/ponto_connect/synchronization"
 
 module Ibanity
   class << self
@@ -76,6 +81,10 @@ module Ibanity
 
     def isabel_connect_api_schema
       @isabel_connect_api_schema ||= client.get(uri: "#{client.base_uri}/isabel-connect")["links"]
+    end
+
+    def ponto_connect_api_schema
+      @ponto_connect_api_schema ||= client.get(uri: "#{client.base_uri}/ponto-connect")["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)
