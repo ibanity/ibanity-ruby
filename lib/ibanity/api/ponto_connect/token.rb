@@ -6,7 +6,7 @@ module Ibanity
         grant_type = refresh_token.present? ? "refresh_token" : "authorization_code"
         arguments = [
           ["grant_type", grant_type],
-          ["client_id", Ibanity.client.client_id],
+          ["client_id", Ibanity.client.ponto_connect_client_id],
           ["redirect_uri", redirect_uri]
         ]
         arguments << ["code", authorization_code] if authorization_code
@@ -28,7 +28,7 @@ module Ibanity
 
       def self.headers
         {
-          "Authorization": "Basic " + Base64.strict_encode64("#{Ibanity.client.client_id}:#{Ibanity.client.client_secret}"),
+          "Authorization": "Basic " + Base64.strict_encode64("#{Ibanity.client.ponto_connect_client_id}:#{Ibanity.client.ponto_connect_client_secret}"),
           "Content-Type": "application/x-www-form-urlencoded"
         }
       end

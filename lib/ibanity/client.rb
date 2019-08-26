@@ -1,13 +1,15 @@
 module Ibanity
   class Client
 
-    attr_reader :base_uri, :signature_certificate, :signature_key, :client_id, :client_secret
+    attr_reader :base_uri, :signature_certificate, :signature_key, :isabel_connect_client_id, :isabel_connect_client_secret, :ponto_connect_client_id, :ponto_connect_client_secret
 
-    def initialize(certificate:, key:, key_passphrase:, signature_certificate: nil, signature_certificate_id: nil, signature_key: nil, signature_key_passphrase: nil, api_scheme: "https", api_host: "api.ibanity.com", api_port: "443", ssl_ca_file: nil, client_id: "valid_client_id", client_secret: "valid_client_secret")
-      @client_id             = client_id
-      @client_secret         = client_secret
-      @certificate           = OpenSSL::X509::Certificate.new(certificate)
-      @key                   = OpenSSL::PKey::RSA.new(key, key_passphrase)
+    def initialize(certificate:, key:, key_passphrase:, signature_certificate: nil, signature_certificate_id: nil, signature_key: nil, signature_key_passphrase: nil, api_scheme: "https", api_host: "api.ibanity.com", api_port: "443", ssl_ca_file: nil, isabel_connect_client_id: "valid_client_id", isabel_connect_client_secret: "valid_client_secret", ponto_connect_client_id: nil, ponto_connect_client_secret: nil)
+      @isabel_connect_client_id     = isabel_connect_client_id
+      @isabel_connect_client_secret = isabel_connect_client_secret
+      @ponto_connect_client_id      = ponto_connect_client_id
+      @ponto_connect_client_secret  = ponto_connect_client_secret
+      @certificate                  = OpenSSL::X509::Certificate.new(certificate)
+      @key                          = OpenSSL::PKey::RSA.new(key, key_passphrase)
       if signature_certificate
         @signature_certificate    = OpenSSL::X509::Certificate.new(signature_certificate)
         @signature_certificate_id = signature_certificate_id
