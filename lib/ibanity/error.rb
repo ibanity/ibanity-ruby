@@ -7,9 +7,8 @@ module Ibanity
     end
 
     def to_s
-      if @errors && @errors.size > 0
+      if @errors.is_a?(Array) && @errors.size > 0
         @errors.map do |error|
-          p error
           if error["meta"] && error["meta"]["attribute"]
             "* #{error["code"]}: '#{error["meta"]["attribute"]}' #{error["detail"]}"
           elsif error["meta"] && error["meta"]["resource"]
@@ -18,6 +17,8 @@ module Ibanity
             "* #{error["code"]}: #{error["detail"]}"
           end
         end.join("\n")
+      elsif @errors.is_a?(Hash)
+        "* #{@errors["error"]}: #{@errors["error_description"]}"
       else
         super
       end
