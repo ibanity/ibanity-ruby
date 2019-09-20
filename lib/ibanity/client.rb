@@ -71,7 +71,7 @@ module Ibanity
       raw_response = RestClient::Request.execute(query) do |response, request, result, &block|
         if response.code >= 400
           body = JSON.parse(response.body)
-          raise Ibanity::Error.new(body["errors"]), "Ibanity request failed."
+          raise Ibanity::Error.new(body["errors"] || body), "Ibanity request failed."
         else
           response.return!(&block)
         end
