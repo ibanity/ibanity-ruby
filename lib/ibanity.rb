@@ -36,6 +36,8 @@ require_relative "ibanity/api/ponto_connect/financial_institution"
 require_relative "ibanity/api/ponto_connect/account"
 require_relative "ibanity/api/ponto_connect/transaction"
 require_relative "ibanity/api/ponto_connect/synchronization"
+require_relative "ibanity/api/consent/consent"
+require_relative "ibanity/api/consent/processing_operation"
 
 module Ibanity
   class << self
@@ -48,6 +50,8 @@ module Ibanity
       @client                    = nil
       @xs2a_api_schema           = nil
       @isabel_connect_api_schema = nil
+      @consent_api_schema        = nil
+      @ponto_connect_api_schema  = nil
       @sandbox_api_schema        = nil
       @configuration             = nil
       yield configuration
@@ -87,6 +91,10 @@ module Ibanity
 
     def ponto_connect_api_schema
       @ponto_connect_api_schema ||= client.get(uri: "#{client.base_uri}/ponto-connect")["links"]
+    end
+
+    def consent_api_schema
+      @consent_api_schema ||= client.get(uri: "#{client.base_uri}/consent")["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)
