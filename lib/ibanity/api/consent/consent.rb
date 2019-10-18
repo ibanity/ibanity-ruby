@@ -30,6 +30,12 @@ module Ibanity
         uri = Ibanity.client.build_uri(path)
         create_by_uri(uri: uri, resource_type: "consent", attributes: [], idempotency_key: idempotency_key)
       end
+
+      def self.delete(id:)
+        path = Ibanity.consent_api_schema["consents"].gsub("{consentId}", id)
+        uri = Ibanity.client.build_uri(path)
+        destroy_by_uri(uri: uri)
+      end
     end
   end
 end
