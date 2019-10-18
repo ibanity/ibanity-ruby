@@ -1,12 +1,12 @@
 module Ibanity
   module Consent
     class ProcessingOperation < Ibanity::BaseResource
-      def self.create(consent_id:, **attributes)
+      def self.create(consent_id:, idempotency_key: nil, **attributes)
         path = Ibanity.consent_api_schema["consent"]["processingOperations"]
           .gsub("{consentId}", consent_id)
           .gsub("{processingOperationId}", "")
         uri = Ibanity.client.build_uri(path)
-        create_by_uri(uri: uri, resource_type: "processingOperation", attributes: attributes)
+        create_by_uri(uri: uri, resource_type: "processingOperation", attributes: attributes, idempotency_key: idempotency_key)
       end
 
       def self.list(consent_id:, **query_params)
@@ -25,12 +25,12 @@ module Ibanity
         find_by_uri(uri: uri)
       end
 
-      def self.revoke(id:, consent_id:)
+      def self.revoke(id:, consent_id:, idempotency_key: nil)
         path = Ibanity.consent_api_schema["consent"]["processingOperation"]["revocations"]
           .gsub("{consentId}", consent_id)
           .gsub("{processingOperationId}", id)
         uri = Ibanity.client.build_uri(path)
-        create_by_uri(uri: uri, resource_type: "processingOperation", attributes: [])
+        create_by_uri(uri: uri, resource_type: "processingOperation", attributes: [], idempotency_key: idempotency_key)
       end
     end
   end
