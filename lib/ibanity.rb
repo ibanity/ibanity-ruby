@@ -40,6 +40,7 @@ require_relative "ibanity/api/ponto_connect/transaction"
 require_relative "ibanity/api/ponto_connect/synchronization"
 require_relative "ibanity/api/consent/consent"
 require_relative "ibanity/api/consent/processing_operation"
+require_relative "ibanity/api/ponto_connect/payment"
 
 module Ibanity
   class << self
