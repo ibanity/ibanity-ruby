@@ -70,15 +70,16 @@ module Ibanity
       }
       raw_response = RestClient::Request.execute(query) do |response, request, result, &block|
         if response.code >= 400
+          ibanity_request_id = response.headers[:ibanity_request_id]
           body = JSON.parse(response.body)
-          raise Ibanity::Error.new(body["errors"] || body), "Ibanity request failed."
+          raise Ibanity::Error.new(body["errors"], ibanity_request_id || body), "Ibanity request failed."
         else
           response.return!(&block)
         end
       end
       JSON.parse(raw_response)
     rescue JSON::ParserError => e
-      return raw_response.body
+      return raw_response.bodyOK
     end
 
     def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:)
