@@ -72,7 +72,6 @@ module Ibanity
         if response.code >= 400
           ibanity_request_id = response.headers[:ibanity_request_id]
           body = JSON.parse(response.body)
-          p response.body
           raise Ibanity::Error.new(body["errors"] || body, ibanity_request_id), "Ibanity request failed."
         else
           response.return!(&block)
