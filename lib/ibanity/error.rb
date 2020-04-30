@@ -11,17 +11,17 @@ module Ibanity
       if @errors.is_a?(Array) && @errors.size > 0
         formatted_errors = @errors.map do |error|
           if error["meta"] && error["meta"]["attribute"]
-           "* #{error["code"]}: '#{error["meta"]["attribute"]}' #{error["detail"]}"
+            "* #{error["code"]}: '#{error["meta"]["attribute"]}' #{error["detail"]}"
           elsif error["meta"] && error["meta"]["resource"]
-           "* #{error["code"]}: '#{error["meta"]["resource"]}' #{error["detail"]}"
+            "* #{error["code"]}: '#{error["meta"]["resource"]}' #{error["detail"]}"
           else
-           "* #{error["code"]}: #{error["detail"]}"
+            "* #{error["code"]}: #{error["detail"]}"
           end
         end
-            formatted_errors << "* ibanity_request_id: #{@ibanity_request_id}"
+        formatted_errors << "* ibanity_request_id: #{@ibanity_request_id}"
         formatted_errors.join("\n")
       elsif @errors.is_a?(Hash)
-        "* #{@errors["error"]}: #{@errors["error_description"]} * Error hint: #{errors["error_hint"]} * ibanity_request_id: #{@ibanity_request_id}"
+        "* #{@errors["error"]}: #{@errors["error_description"]}\n * Error hint: #{@errors["error_hint"]}\n * ibanity_request_id: #{@ibanity_request_id}"
       else
         super
       end
