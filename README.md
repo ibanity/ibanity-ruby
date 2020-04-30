@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bdusauso/ibanity-ruby.svg?branch=master)](https://travis-ci.org/bdusauso/ibanity-ruby)
+[![Build Status](https://travis-ci.org/ibanity/ibanity-ruby.svg?branch=master)](https://travis-ci.org/ibanity/ibanity-ruby)
 
 # Ibanity Ruby Library
 
