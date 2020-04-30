@@ -1,2 +1,9 @@
 language: ruby
 script: "bundle exec rspec"
+deploy:
+  provider: rubygems
+  api_key: ...
+  on:
+    tags: true
+  gem: ibanity
+  skip_cleanup: true
