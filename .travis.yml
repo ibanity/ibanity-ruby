@@ -1,0 +1,10 @@
+language: ruby
+script: bundle exec rspec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: pfXgGXH/AZEG3HMiaJPmJ7fck6Z3Hj0y7TU5TwvLAtKuBy6hlLT67ne/VfeBZQKa9d7eerr9PFP1hvLjZppScZMMOTtjBTvwpchkcUDwCxHx5GzS/jRnBF+uYHIza2p4Wq8yIPug7UrZ0qyq5VOG45R/nC/fPm2Ht2T7heqF5VgRaDGrN7Fq3zXn7duiYhTy02nDXorZ/kEAjnwdwDtXWyVFq8wr4inTExYrDP9/M57qx5TrkgWmcQ7JrvO2KfLDMJqAxI8lNoaPl5dAi7q1XWqqSVay7h9OAnP4UfvnvAc106lG6nHfTQig1krTfxRAvtHlPQjSlFkL+0qfBPBz1C/ex221O3NsNBYmI/mJ45lcNhqJbnkV2VEAEgUoe4ZFfKUUczLfnVxIPjoQmHMwLwfEO4g8/Hz/I3L7bvebgfzGGMDpmN6ERZRJmhutE6K5cL80ghoLs6ExJLoqHi1qvdBSkM2IyE4Yo+lob/hKU1IBL1w13T2h3EHapBh3kKn+jBzu/y5nXTEteBHbMP8j2zxFiihVBJEKPXhg/iU8WHLI6HZgWJkOc9ZH3hS7CN3VELK7fVZp9jaPAKaKihdvxQ0z3gCPFL+E6rYKsBPYqXE6qDsSQswhqTN15W0eVQqK8fDXkZmW0lSGvi2IJvL0CjIaahfB2GaapTtqOwar7sc=
+  on:
+    tags: true
+  gem: ibanity
+  skip_cleanup: true
