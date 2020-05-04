@@ -8,3 +8,8 @@ deploy:
     tags: true
   gem: ibanity
   skip_cleanup: true
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: J06CK+muuVTW1SS1GmhSw7ZVo0vEMFpNWU5B9Cz94h5BZI3rPSxZFSCQG8OTQ/lBIrzPTlQj5JGzYgHpS5QRHGa4s1A1tYrZUfjUUgaZ7SIfoY8AgHH6cKF+jtwYy2z+kOJekBtfNLqfzAx+48QrxdbmBnXTG+r7UXczw0TAB7BMKh8107q7kqgjKiAnpGlXzC6rLWUwdRF/1qvDtYFCjoZ0OpYMnUUK+0/bgwVHxjYRl64DrPD3jC2XoaCTRCMyLbfqb9ZUXKVf27ByAQ/Ikj+qODdSH10vwPARXlbbVhpPfjAax42zC1OwSABdE00iJW1+TuoI69znjWg1d8Ti97raihV98OXMyqHXPKxX/gZp+0MSuYIE9GQWY791ulmQ+GwwkgB6v2LmXGCE8K+eUCc3zkGJWVUzBP+Wu49mDzDAQHBPl/G3u26RqmVQzWhk9ckHQ30cyIPFjz/eaMrda+wgQ6AKzfNq+XVL6hAO+Se28PRPhDu33ZzIKqgpk0dH77LcKPI/Uf1dCT+0oa+pvVx1T0Z93SNp0azh71rx9AOWBMZm7TcOYvMOw9QpVBZkoWy4NQo9PMT0Jo73qAnOTHadr8b5zeDoAu7jnlhCxIpmnrmIh4Dz6n6XF+c+d+C/MAQVQ0rKj7KzTYEsYat0NQ62lgBtHy5/Qmu736MaIVA=
