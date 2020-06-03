@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2
+
+### Enhancements
+
+* Add support for periodic and bulk payments
+
 ## 1.1.1
 
 ### Enhancements
