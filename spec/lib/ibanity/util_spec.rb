@@ -63,5 +63,27 @@ RSpec.describe Ibanity::Util do
 
       expect(Ibanity::Util.underscorize(hash)).to eq(expected)
     end
+
+    it "leaves arrays elements untouched if they are not themselves hashes or arrays" do
+      hash = {
+        "currency" => "EUR",
+        "amount" => 1,
+        "debtorName" => "Sophie Schowalter",
+        "details" => [
+          "BE59823362319793"
+        ]
+      }
+
+      expected = {
+        "currency" => "EUR",
+        "amount" => 1,
+        "debtor_name" => "Sophie Schowalter",
+        "details" => [
+          "BE59823362319793"
+        ]
+      }
+
+      expect(Ibanity::Util.underscorize(hash)).to eq(expected)
+    end
   end
 end
