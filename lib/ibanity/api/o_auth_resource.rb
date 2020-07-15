@@ -6,6 +6,12 @@ module Ibanity
       new(raw_item)
     end
 
+    def self.find_by_uri(uri:, customer_access_token: nil, headers: nil)
+      raw_item = Ibanity.client.get(uri: uri, customer_access_token: customer_access_token, headers: headers)
+      raw_item = {} if raw_item == ""
+      new(raw_item)
+    end
+
     def initialize(raw)
       super(raw)
     end
