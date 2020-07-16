@@ -92,7 +92,7 @@ module Ibanity
       attributes           = raw["attributes"]    || {}
       meta                 = raw["meta"]          || {}
       params               = base.merge(attributes).merge(meta)
-      Ibanity::Util.underscorize_hash(params)
+      Ibanity::Util.underscorize(params)
     end
 
     def setup_relationships(relationships, customer_access_token = nil)

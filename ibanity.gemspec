@@ -19,6 +19,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rest-client", ">= 1.8.0"
-  spec.add_development_dependency "rspec", "3.4.0"
-  spec.add_development_dependency "webmock", "1.24.2"
+  spec.add_development_dependency "rspec", "3.9.0"
 end

@@ -1,9 +1,16 @@
 module Ibanity
   module Util
-    def self.underscorize_hash(attributes)
-      attributes.keys.reduce({}) do |result, key|
-        result[underscore(key)] = attributes[key]
-        result
+    def self.underscorize(obj)
+      case obj
+      when Array
+        obj.map { |e| underscorize(e) }
+      when Hash
+        obj.keys.reduce({}) do |result, key|
+          result[underscore(key)] = underscorize(obj[key])
+          result
+        end
+      else
+        obj
       end
     end
 

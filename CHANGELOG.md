@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2
+
+### Enhancements
+
+* Add support for periodic and bulk payments
+* Add snake-case transformation for deeply nested data structures
+
 ## 1.1.1
 
 ### Enhancements
