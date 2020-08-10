@@ -35,7 +35,7 @@ module Ibanity
     end
 
     def request_target
-      @uri.query = URI.encode_www_form(URI.decode_www_form(@uri.query.to_s).concat(@query_params.to_a)) if @query_params&.keys&.any?
+      @uri.query = RestClient::Utils.encode_query_string(@query_params) if @query_params&.keys&.any?
       "#{@method} #{@uri.request_uri}"
     end
 
