@@ -16,3 +16,6 @@ mkmf.log
 .ruby*
 *.gem
 *.env
+/.idea
+/bin
+.rakeTasks
