@@ -18,9 +18,14 @@ module Ibanity
 
     def signature_headers
       {
-        "(created)" => date,
         "Digest"    => payload_digest,
-        "Signature" => "keyId=\"#{@certificate_id}\" algorithm=\"#{SIGNATURE_ALGORITHM}\" headers=\"#{headers_to_sign.join(" ")}\" signature=\"#{base64_signature}\""
+        "Signature" => [
+          "keyId=\"#{@certificate_id}\"",
+          "created=\"#{date}\"",
+          "algorithm=\"#{SIGNATURE_ALGORITHM}\"",
+          "headers=\"#{headers_to_sign.join(" ")}\"",
+          "signature=\"#{base64_signature}\"",
+        ].join(",")
       }
     end
 

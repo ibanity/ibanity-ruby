@@ -17,20 +17,20 @@ RSpec.describe Ibanity::HttpSignature do
     end
 
     let(:parts_regex) do
-      /keyId="(?<keyId>.*)",?\s?algorithm="(?<algorithm>.*)",?\s?headers="(?<headers>.*)",?\s?signature="(?<signature>.*)"/
+      /keyId="(?<keyId>.*)",\s?created="(?<created>.*)?",?\s?algorithm="(?<algorithm>.*)",\s?headers="(?<headers>.*)",?\s?signature="(?<signature>.*)"/
     end
 
     let(:signature_parts) do
       signature.signature_headers["Signature"].match(parts_regex).named_captures
     end
 
-    ["(created)", "Digest", "Signature"].each do |header|
+    ["Digest", "Signature"].each do |header|
       it "contains the '#{header}' header" do
         expect(signature.signature_headers).to include(header)
       end
     end
 
-    ["keyId", "algorithm", "headers", "signature"].each do |part|
+    ["keyId", "algorithm", "headers", "signature", "created"].each do |part|
       it "has a signature containing the part '#{part}'" do
         expect(signature_parts).to include(part)
       end
