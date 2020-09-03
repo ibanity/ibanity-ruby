@@ -4,6 +4,7 @@
 
 ### Enhancements
 
+* Default signature algorithm is now ["hs2019"](https://tools.ietf.org/html/draft-cavage-http-signatures-12#appendix-E.2) 
 * Add support for periodic and bulk payments
 * Add snake-case transformation for deeply nested data structures
 
