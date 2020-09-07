@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3
+
+### Enhancements
+
+* [Ponto Connect] Add support for the /userinfo and /organizations/{id}/usage endpoints.
+
 ## 1.2
 
 ### Enhancements
