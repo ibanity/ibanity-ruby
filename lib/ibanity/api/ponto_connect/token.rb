@@ -2,16 +2,33 @@ module Ibanity
   module PontoConnect
     class Token < Ibanity::OAuthResource
       def self.create(refresh_token: nil, authorization_code: nil, redirect_uri: nil, idempotency_key: nil, code_verifier: nil)
-        uri = Ibanity.ponto_connect_api_schema["oauth2"]["token"]
-        grant_type = refresh_token ? "refresh_token" : "authorization_code"
-        arguments = [
-          ["grant_type", grant_type],
-          ["client_id", Ibanity.client.ponto_connect_client_id]
-        ]
-        arguments << ["code", authorization_code] << ["code_verifier", code_verifier] << ["redirect_uri", redirect_uri] if authorization_code
-        arguments << ["refresh_token", refresh_token] if refresh_token
-        payload = URI.encode_www_form(arguments)
-        create_by_uri(uri: uri, payload: payload, idempotency_key: idempotency_key, headers: self.headers)
+        arguments =
+          if refresh_token
+            [
+              ["grant_type", "refresh_token"],
+              ["client_id", Ibanity.client.ponto_connect_client_id],
+              ["refresh_token", refresh_token]
+            ]
+          elsif authorization_code
+            [
+              ["grant_type", "authorization_code"],
+              ["client_id", Ibanity.client.ponto_connect_client_id],
+              ["code", authorization_code],
+              ["code_verifier", code_verifier],
+              ["redirect_uri", redirect_uri]
+            ]
+          else
+            [
+              ["grant_type", "client_credentials"]
+            ]
+          end
+
+        create_by_uri(
+          uri: Ibanity.ponto_connect_api_schema["oauth2"]["token"],
+          payload: URI.encode_www_form(arguments),
+          idempotency_key: idempotency_key,
+          headers: self.headers
+        )
       end
 
       def self.delete(refresh_token:)
