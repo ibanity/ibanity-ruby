@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5
+
+* Proper release of previous enhancements
+
+## 1.4
+
+*Don't use this version as it was not properly released !*
+
 ## 1.3
 
 ### Enhancements
