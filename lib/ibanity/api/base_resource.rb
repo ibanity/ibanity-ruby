@@ -98,12 +98,14 @@ module Ibanity
     def setup_relationships(relationships, customer_access_token = nil)
       relationships.each do |key, relationship|
         if relationship["data"]
+          self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
+          return unless relationship.dig("links", "related")
+
           klass = relationship_klass(key)
           method_name = Ibanity::Util.underscore(key)
           define_singleton_method(method_name) do |headers: nil|
             klass.find_by_uri(uri: relationship["links"]["related"], headers: headers, customer_access_token: customer_access_token)
           end
-          self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
         else
           singular_key = key[0..-2]
           klass        = relationship_klass(singular_key)
