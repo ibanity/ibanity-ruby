@@ -10,6 +10,11 @@ module Ibanity
         uri = Ibanity.ponto_connect_api_schema["accounts"].sub("{accountId}", id)
         find_by_uri(uri: uri, customer_access_token: access_token)
       end
+
+      def self.delete(access_token:, id:)
+        uri = Ibanity.ponto_connect_api_schema["accounts"].sub("{accountId}", id)
+        destroy_by_uri(uri: uri, customer_access_token: access_token)
+      end
     end
   end
 end
