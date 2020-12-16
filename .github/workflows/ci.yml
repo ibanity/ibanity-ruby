@@ -16,3 +16,12 @@ jobs:
         run: bundle install
       - name: Run tests
         run: bundle exec rspec
+      - name: Notify slack failure on master branch
+        if: contains(github.ref, 'master') && failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1.1.2
+        with:
+          channel: ibanity-support-tech
+          status: FAILED
+          color: danger
