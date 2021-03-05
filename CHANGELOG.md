@@ -1,4 +1,15 @@
 # Changelog
+## 1.7
+### Enhancements
+
+* [Ponto Connect] Add support for the /onboarding-details endpoint.
+
+## 1.6
+### Enhancements
+
+* [Ponto Connect] Added a new revoke account endpoint. It allows to remove an account from your integration. (The bank account will not be deleted from the Ponto account itself).
+
+* [Ponto Connect] Added a new delete organization integration endpoint. It provides an alternative method to revoke the integration (in addition to the revoke refresh token endpoint). This endpoint remains accessible with a client access token, even if your refresh token is lost or expired.
 
 ## 1.5
 
