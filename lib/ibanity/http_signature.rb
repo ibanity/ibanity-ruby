@@ -40,7 +40,7 @@ module Ibanity
           digest = compute_digest_string("")
         when String
           digest = compute_digest_string(@payload)
-        when Pathname
+        when File
           digest = compute_digest_file(@payload)
       end
       base64 = Base64.urlsafe_encode64(digest.digest)

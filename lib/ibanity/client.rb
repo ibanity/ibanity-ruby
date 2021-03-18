@@ -61,6 +61,15 @@ module Ibanity
     private
 
     def execute(method:, uri:, headers:, query_params: {}, payload: nil, json:)
+      case payload
+      when NilClass
+        payload = ''
+      when String
+        payload = json ? payload.to_json : payload
+      when Pathname
+        payload = File.open(payload, 'rb')
+      end
+
       if @signature_certificate
         signature = Ibanity::HttpSignature.new(
           certificate:    @signature_certificate,
@@ -70,18 +79,9 @@ module Ibanity
           uri:            uri,
           query_params:   query_params,
           headers:        headers,
-          payload:        payload && json ? payload.to_json : payload
+          payload:        payload
         )
         headers.merge!(signature.signature_headers)
-      end
-
-      case payload
-        when NilClass
-          payload = ''
-        when String
-          payload = json ? payload.to_json : payload
-        when Pathname
-          payload = File.open(payload, 'rb')
       end
 
       query = {
