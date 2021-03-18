@@ -93,8 +93,7 @@ module Ibanity
         ssl_client_key:  @key,
         ssl_ca_file:     @ssl_ca_file
       }
-      puts "Payload size: #{payload.size}" if payload
-      puts "Payload class: #{payload.class}"
+
       raw_response = RestClient::Request.execute(query) do |response, request, result, &block|
         if response.code >= 400
           ibanity_request_id = response.headers[:ibanity_request_id]
