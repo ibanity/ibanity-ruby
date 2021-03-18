@@ -3,7 +3,22 @@ module Ibanity
 
     attr_reader :base_uri, :signature_certificate, :signature_key, :isabel_connect_client_id, :isabel_connect_client_secret, :ponto_connect_client_id, :ponto_connect_client_secret
 
-    def initialize(certificate:, key:, key_passphrase:, signature_certificate: nil, signature_certificate_id: nil, signature_key: nil, signature_key_passphrase: nil, api_scheme: "https", api_host: "api.ibanity.com", api_port: "443", ssl_ca_file: nil, isabel_connect_client_id: "valid_client_id", isabel_connect_client_secret: "valid_client_secret", ponto_connect_client_id: nil, ponto_connect_client_secret: nil)
+    def initialize(
+        certificate:,
+        key:,
+        key_passphrase:,
+        signature_certificate: nil,
+        signature_certificate_id: nil,
+        signature_key: nil,
+        signature_key_passphrase: nil,
+        api_scheme: "https",
+        api_host: "api.ibanity.com",
+        api_port: "443",
+        ssl_ca_file: nil,
+        isabel_connect_client_id: "valid_client_id",
+        isabel_connect_client_secret: "valid_client_secret",
+        ponto_connect_client_id: nil,
+        ponto_connect_client_secret: nil)
       @isabel_connect_client_id     = isabel_connect_client_id
       @isabel_connect_client_secret = isabel_connect_client_secret
       @ponto_connect_client_id      = ponto_connect_client_id
