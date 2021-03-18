@@ -106,6 +106,8 @@ module Ibanity
       JSON.parse(raw_response)
     rescue JSON::ParserError => e
       return raw_response.body
+    ensure
+      payload.close if payload.is_a?(File)
     end
 
     def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:)
