@@ -59,15 +59,27 @@ module Ibanity
         )
         headers.merge!(signature.signature_headers)
       end
+
+      case payload
+        when NilClass
+          payload = ''
+        when String
+          payload = json ? payload.to_json : payload
+        when Pathname
+          payload = File.open(payload, 'rb')
+      end
+
       query = {
         method:          method,
         url:             uri,
         headers:         headers.merge(params: query_params),
-        payload:         payload && json ? payload.to_json : payload,
+        payload:         payload,
         ssl_client_cert: @certificate,
         ssl_client_key:  @key,
         ssl_ca_file:     @ssl_ca_file
       }
+      puts "Payload size: #{payload.size}" if payload
+      puts "Payload class: #{payload.class}"
       raw_response = RestClient::Request.execute(query) do |response, request, result, &block|
         if response.code >= 400
           ibanity_request_id = response.headers[:ibanity_request_id]
