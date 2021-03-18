@@ -40,12 +40,12 @@ module Ibanity
     end
 
     def post(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil, json: true, headers: nil)
-      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, extra_headers: headers, json: json)
+      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, extra_headers: headers, json: json, payload: payload)
       execute(method: :post, uri: uri, headers: headers, query_params: query_params, payload: payload, json: json)
     end
 
     def patch(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil, json: true)
-      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, json: json)
+      headers = build_headers(customer_access_token: customer_access_token, idempotency_key: idempotency_key, json: json, payload: payload)
       execute(method: :patch, uri: uri, headers: headers, query_params: query_params, payload: payload, json: json)
     end
 
@@ -110,10 +110,11 @@ module Ibanity
       payload.close if payload.is_a?(File)
     end
 
-    def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:)
+    def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:, payload: nil)
       headers = {
         accept: :json,
       }
+      headers["Transfer-Encoding"]       = "chunked" if payload.is_a?(Pathname)
       headers[:content_type]             = :json if json
       headers["Authorization"]           = "Bearer #{customer_access_token}" unless customer_access_token.nil?
       headers["Ibanity-Idempotency-Key"] = idempotency_key unless idempotency_key.nil?
