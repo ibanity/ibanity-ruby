@@ -98,18 +98,18 @@ module Ibanity
     def setup_relationships(relationships, customer_access_token = nil)
       relationships.each do |key, relationship|
         if relationship["data"]
-          self[Ibanity::Util.underscore("#{key}_id")] = relationship["data"]["id"]
-          return unless relationship.dig("links", "related")
-
-          klass = relationship_klass(key)
-          method_name = Ibanity::Util.underscore(key)
+          resource = relationship["data"]["type"] || key
+          klass = relationship_klass(resource)
+          method_name = Ibanity::Util.underscore(resource)
           define_singleton_method(method_name) do |headers: nil|
             klass.find_by_uri(uri: relationship["links"]["related"], headers: headers, customer_access_token: customer_access_token)
           end
+          self[Ibanity::Util.underscore("#{resource}_id")] = relationship["data"]["id"]
         else
-          singular_key = key[0..-2]
-          klass        = relationship_klass(singular_key)
-          method_name  = Ibanity::Util.underscore(key)
+          resource = key
+          singular_resource = resource[0..-2]
+          klass        = relationship_klass(singular_resource)
+          method_name  = Ibanity::Util.underscore(resource)
           define_singleton_method(method_name) do |headers: nil, **query_params|
             uri = relationship["links"]["related"]
             klass.list_by_uri(uri: uri, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
@@ -126,11 +126,13 @@ module Ibanity
 
     def relationship_klass(name)
       camelized_name = Ibanity::Util.camelize(name)
-      enclosing_module = if camelized_name == "FinancialInstitution"
-        Ibanity::Xs2a
-      else
-        Object.const_get(self.class.to_s.split("::")[0...-1].join("::"))
-      end
+      enclosing_module =
+        if camelized_name == "FinancialInstitution"
+          Ibanity::Xs2a
+        else
+          Object.const_get(self.class.to_s.split("::")[0...-1].join("::"))
+        end
+
       enclosing_module.const_get(camelized_name)
     end
   end
