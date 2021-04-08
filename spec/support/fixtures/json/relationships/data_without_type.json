@@ -9,16 +9,10 @@
   "relationships": {
     "manufacturer": {
       "data": {
-        "id": "c4ebf0f7",
-        "type": "manufacturer"
+        "id": "c4ebf0f7"
       },
       "links": {
         "related": "https://www.cardb.com/manufacturers/c4ebf0f7"
-      }
-    },
-    "owner": {
-      "data": {
-        "id": "7b5ebb23"
       }
     }
   },

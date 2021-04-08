@@ -1,0 +1,21 @@
+{
+  "attributes": {
+    "color": "blue"
+  },
+  "id": "62ebd4687e",
+  "links": {
+    "self": "https://www.cardb.com/models/62ebd4687e"
+  },
+  "relationships": {
+    "manufacturer": {
+      "data": {
+        "id": "c4ebf0f7",
+        "type": "manufacturer"
+      },
+      "links": {
+        "related": "https://www.cardb.com/manufacturers/c4ebf0f7"
+      }
+    }
+  },
+  "type": "car"
+}
