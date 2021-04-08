@@ -19,6 +19,11 @@ RSpec.describe Ibanity::BaseResource do
       end
     end
 
+    context "when the 'links' attribute is present" do
+      it "retrieves the resource name from the 'type' attribute within the 'links' attribute" do
+        car = Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/meta_with_type.json"))
+  
+        expect(car).to respond_to(:manufacturer)
       end
     end
   end
