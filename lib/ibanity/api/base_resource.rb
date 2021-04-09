@@ -106,7 +106,6 @@ module Ibanity
           end
           self[Ibanity::Util.underscore("#{resource}_id")] = relationship["data"]["id"]
         elsif relationship.dig("links", "meta")
-          puts "In meta"
           resource = relationship.dig("links", "meta", "type")
           klass = relationship_klass(resource)
           method_name = Ibanity::Util.underscore(resource)
