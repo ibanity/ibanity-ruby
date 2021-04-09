@@ -107,8 +107,8 @@ module Ibanity
               klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
             end
             self[Ibanity::Util.underscore("#{resource}_id")] = relationship.dig("data", "id")
-          elsif relationship.dig("links", "meta")
-            resource = relationship.dig("links", "meta", "type")
+          elsif relationship["meta"]
+            resource = relationship.dig("meta", "type")
             klass = relationship_klass(resource)
             method_name = Ibanity::Util.underscore(resource)
             define_singleton_method(method_name) do |headers: nil|

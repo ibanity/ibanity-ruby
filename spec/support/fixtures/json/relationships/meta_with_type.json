@@ -9,10 +9,10 @@
   "relationships": {
     "manufacturer": {
       "links": {
-        "meta": {
-          "type": "manufacturer"
-        },  
-        "related": "https://www.cardb.com/manufacturers/c4ebf0f7"
+        "related": "https://www.cardb.com/manufacturers/c4ebf0f7"        
+      },
+      "meta": {
+        "type": "manufacturer"
       }
     }
   },
