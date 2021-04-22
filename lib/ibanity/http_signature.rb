@@ -1,4 +1,5 @@
 require "base64"
+require "pathname"
 
 module Ibanity
   class HttpSignature
@@ -29,14 +30,36 @@ module Ibanity
       }
     end
 
-    private
-
     def payload_digest
-      digest         = OpenSSL::Digest::SHA512.new
-      string_payload = @payload.nil? ? "" : @payload
-      digest.update(string_payload)
+      @payload_digest ||= compute_digest
+    end
+
+    def compute_digest
+      case @payload
+        when NilClass
+          digest = compute_digest_string("")
+        when String
+          digest = compute_digest_string(@payload)
+        when File
+          digest = compute_digest_file(@payload)
+      end
       base64 = Base64.urlsafe_encode64(digest.digest)
       "SHA-512=#{base64}"
+    end
+
+    def compute_digest_string(str)
+      digest = OpenSSL::Digest::SHA512.new
+      digest.update(str)
+    end
+
+    def compute_digest_file(pathname)
+      digest = OpenSSL::Digest::SHA512.new
+      File.open(pathname, 'rb') do |f|
+        while buffer = f.read(256_000)
+          digest << buffer
+        end
+      end
+      digest
     end
 
     def headers_to_sign
