@@ -64,7 +64,7 @@ module Ibanity
       case payload
       when NilClass
         payload = ''
-      when String
+      when Hash
         payload = json ? payload.to_json : payload
       when Pathname
         payload = File.open(payload, 'rb')
