@@ -1,0 +1,15 @@
+{
+  "id": "62ebd4687e",
+  "attributes": {
+    "color": "blue"
+  },
+  "relationships": {
+    "manufacturer": {
+      "data": {
+        "type": "manufacturer",
+        "id": "6680437c"
+      }
+    }
+  },
+  "type": "car"
+}
