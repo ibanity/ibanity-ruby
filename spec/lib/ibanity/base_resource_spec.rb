@@ -35,11 +35,14 @@ RSpec.describe Ibanity::BaseResource do
     end
 
     context "when there's no 'links/related' element" do
-      it "discards the relationship" do
-        car = Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/no_links_related.json"))
+      let(:car) { Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/no_links_related.json")) }
 
-        expect(car).not_to respond_to(:manufacturer)
+      it "sets up a '<relationship_key>_id' property when there is a 'data/id' element" do
         expect(car.manufacturer_id).to eq("6680437c")
+      end
+
+      it "discards the relationship" do
+        expect(car).not_to respond_to(:manufacturer)
       end
     end
   end
