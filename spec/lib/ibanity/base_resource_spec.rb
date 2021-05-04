@@ -39,6 +39,7 @@ RSpec.describe Ibanity::BaseResource do
         car = Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/no_links_related.json"))
 
         expect(car).not_to respond_to(:manufacturer)
+        expect(car.manufacturer_id).to eq("6680437c")
       end
     end
   end
