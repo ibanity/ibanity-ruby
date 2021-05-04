@@ -7,7 +7,7 @@
     "self": "https://www.cardb.com/models/62ebd4687e"
   },
   "relationships": {
-    "manufacturer": {
+    "maker": {
       "data": {
         "id": "c4ebf0f7",
         "type": "manufacturer"
