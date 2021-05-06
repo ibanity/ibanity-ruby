@@ -1,7 +1,7 @@
 module Ibanity
   module IsabelConnect
     class BulkPaymentInitiationRequest < Ibanity::BaseResource
-      def self.create(access_token:, raw_content:, filename:, idempotency_key: nil)
+      def self.create(access_token:, raw_content:, filename:, idempotency_key: nil, isShared: true, hideDetails: false)
         uri = Ibanity.isabel_connect_api_schema["bulkPaymentInitiationRequests"].sub("{bulkPaymentInitiationRequestId}", "")
         create_file_by_uri(
           uri: uri,
@@ -11,7 +11,9 @@ module Ibanity
           idempotency_key: idempotency_key,
           headers: {
             content_type: :xml,
-            "Content-Disposition": "inline; filename=#{filename}"
+            "Content-Disposition": "inline; filename=#{filename}",
+            "Is-Shared": isShared,
+            "Hide-Details": hideDetails
           }
         )
       end
