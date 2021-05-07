@@ -1,4 +1,9 @@
 # Changelog
+
+## Next version
+
+* [Isabel Connect] Add `hideDetails` and `isShared` parameters to `BulkPaymentInititationRequest.create`
+
 ## 1.7
 ### Enhancements
 
