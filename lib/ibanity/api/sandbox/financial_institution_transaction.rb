@@ -31,6 +31,16 @@ module Ibanity
         find_by_uri(uri: uri)
       end
 
+      def self.update(id:, financial_institution_user_id:, financial_institution_id:, financial_institution_account_id:, idempotency_key: nil, **attributes)
+        path = Ibanity.sandbox_api_schema["financialInstitution"]["financialInstitutionAccount"]["financialInstitutionTransactions"]
+          .gsub("{financialInstitutionId}", financial_institution_id)
+          .gsub("{financialInstitutionUserId}", financial_institution_user_id)
+          .gsub("{financialInstitutionAccountId}", financial_institution_account_id)
+          .gsub("{financialInstitutionTransactionId}", id)
+        uri = Ibanity.client.build_uri(path)
+        update_by_uri(uri: uri, resource_type: "financialInstitutionTransaction", attributes: attributes, idempotency_key: idempotency_key)
+      end
+
       def self.delete(id:, financial_institution_user_id:, financial_institution_id:, financial_institution_account_id:)
         path = Ibanity.sandbox_api_schema["financialInstitution"]["financialInstitutionAccount"]["financialInstitutionTransactions"]
           .gsub("{financialInstitutionId}", financial_institution_id)
