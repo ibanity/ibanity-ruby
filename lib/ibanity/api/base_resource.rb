@@ -126,7 +126,7 @@ module Ibanity
         end
       else
         resource = key
-        singular_resource = resource[0..-2]
+        singular_resource = resource.dig("links", "meta", "type") || resource[0..-2]
         klass = relationship_klass(singular_resource)
         method_name = Ibanity::Util.underscore(resource)
         define_singleton_method(method_name) do |headers: nil, **query_params|
