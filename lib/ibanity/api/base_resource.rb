@@ -124,7 +124,7 @@ module Ibanity
         define_singleton_method(method_name) do |headers: nil|
           klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
         end
-      elsif relationship.dig("links")
+      elsif relationship.dig("links", "meta", "type")
         resource = relationship.dig("links", "meta", "type")
         raise "Resource type not found in #{relationship}" if resource.nil?
         klass = relationship_klass(resource)
