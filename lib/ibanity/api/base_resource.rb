@@ -109,7 +109,6 @@ module Ibanity
     end
 
     def setup_relationship(customer_access_token, key, relationship, url)
-      p "Bind relationship #{relationship}"
       if relationship["data"]
         resource = relationship.dig("data", "type") || key
         klass = relationship_klass(resource)
@@ -127,7 +126,7 @@ module Ibanity
         end
       elsif relationship.dig("links")
         resource = relationship.dig("links", "meta", "type")
-        raise "Resource type not found in #{relationship}"
+        raise "Resource type not found in #{relationship}" if resource.blank?
         klass = relationship_klass(resource)
         method_name = Ibanity::Util.underscore(key)
         define_singleton_method(method_name) do |headers: nil|
