@@ -124,8 +124,8 @@ module Ibanity
         define_singleton_method(method_name) do |headers: nil|
           klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
         end
-      elsif relationship["links"]
-        resource = relationship.dig("links", "meta", "type")
+      elsif relationship.dig(key, "links")
+        resource = relationship.dig(key, "links", "meta", "type")
         klass = relationship_klass(resource)
         method_name = Ibanity::Util.underscore(key)
         define_singleton_method(method_name) do |headers: nil|
