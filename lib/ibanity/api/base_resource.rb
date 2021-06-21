@@ -86,6 +86,8 @@ module Ibanity
     private
 
     def prepare_attributes(raw)
+      raise "Unexpected raw type, expected hash, got #{raw}" unless raw.is_a?(Hash)
+
       base = {
         "id"  => raw["id"],
       }
