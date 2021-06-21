@@ -139,27 +139,26 @@ module Ibanity
 
       info = JSON.parse(info.to_json)
 
-      if info.dig(:headers, "Authorization")
-        info[:headers]["Authorization"] = "[filtered]"
+      if info.dig("headers", "Authorization")
+        info["headers"]["Authorization"] = "[filtered]"
       end
-      info.delete(:proxy)
-      info.delete(:ssl_client_cert)
-      info.delete(:ssl_client_key)
+      info.delete("proxy")
+      info.delete("ssl_client_cert")
       info.delete("ssl_client_key")
-      if info.dig(:payload).is_a?(Hash) && info.dig(:payload, :client_secret)
-        info[:payload][:client_secret] = "[filtered]"
+      if info.dig("payload").is_a?(Hash) && info.dig("payload", "client_secret")
+        info["payload"]["client_secret"] = "[filtered]"
       end
 
-      if !info.dig(:body).nil?
-        if !info.dig(:body).is_a?(Hash)
+      if !info.dig("body").nil?
+        if !info.dig("body").is_a?(Hash)
           is_json = false
           begin
-            JSON.parse(info.dig(:body))
+            JSON.parse(info.dig("body"))
             is_json = true
           rescue => exception
 
           end
-          info[:body] = Base64.strict_encode64(info[:body]) unless is_json
+          info["body"] = Base64.strict_encode64(info["body"]) unless is_json
         end
       end
 
