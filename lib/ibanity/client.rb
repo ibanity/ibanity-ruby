@@ -137,7 +137,7 @@ module Ibanity
         return
       end
 
-      info = info.deep_dup
+      info = JSON.parse(info.to_json)
 
       if info.dig(:headers, "Authorization")
         info[:headers]["Authorization"] = "[filtered]"
