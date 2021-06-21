@@ -132,7 +132,7 @@ module Ibanity
         klass = relationship_klass(resource)
         method_name = Ibanity::Util.underscore(key)
         define_singleton_method(method_name) do |headers: nil|
-          klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+          klass.list_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
         end
       else
         resource = key
