@@ -5,7 +5,6 @@ module Ibanity
         uri = if synchronization_id
           Ibanity.xs2a_api_schema["customer"]["synchronization"]["updatedTransactions"]
           .sub("{synchronizationId}", synchronization_id)
-          .sub("{updateTransactionId}", "")
         else
           Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["transactions"]
             .sub("{financialInstitutionId}", financial_institution_id)
