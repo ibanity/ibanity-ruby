@@ -1,7 +1,7 @@
 module Ibanity
   module Xs2a
     class Transaction < Ibanity::BaseResource
-      def self.list(financial_institution_id:, account_id:, synchronization_id:, customer_access_token:, headers: nil,  **query_params)
+      def self.list(financial_institution_id: nil, account_id: nil, synchronization_id: nil, customer_access_token:, headers: nil,  **query_params)
         uri = if synchronization_id
           Ibanity.xs2a_api_schema["customer"]["synchronization"]["updatedTransactions"]
           .sub("{synchronizationId}", synchronization_id)
