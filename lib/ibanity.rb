@@ -88,7 +88,8 @@ module Ibanity
         :api_scheme,
         :api_host,
         :api_port,
-        :ssl_ca_file
+        :ssl_ca_file,
+        :debug_http_requests
       ).new
     end
 

@@ -86,6 +86,8 @@ module Ibanity
     private
 
     def prepare_attributes(raw)
+      raise "Unexpected raw type, expected hash, got #{raw}" unless raw.is_a?(Hash)
+
       base = {
         "id"  => raw["id"],
       }
@@ -123,6 +125,13 @@ module Ibanity
         method_name = Ibanity::Util.underscore(key)
         define_singleton_method(method_name) do |headers: nil|
           klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+        end
+      elsif relationship.dig("links", "meta", "type")
+        resource = relationship.dig("links", "meta", "type")
+        klass = relationship_klass(resource)
+        method_name = Ibanity::Util.underscore(key)
+        define_singleton_method(method_name) do |headers: nil|
+          klass.list_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
         end
       else
         resource = key

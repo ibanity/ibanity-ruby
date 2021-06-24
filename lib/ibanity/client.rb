@@ -18,13 +18,15 @@ module Ibanity
         isabel_connect_client_id: "valid_client_id",
         isabel_connect_client_secret: "valid_client_secret",
         ponto_connect_client_id: nil,
-        ponto_connect_client_secret: nil)
+        ponto_connect_client_secret: nil,
+        debug_http_requests: false)
       @isabel_connect_client_id     = isabel_connect_client_id
       @isabel_connect_client_secret = isabel_connect_client_secret
       @ponto_connect_client_id      = ponto_connect_client_id
       @ponto_connect_client_secret  = ponto_connect_client_secret
       @certificate                  = OpenSSL::X509::Certificate.new(certificate)
       @key                          = OpenSSL::PKey::RSA.new(key, key_passphrase)
+      @http_debug                   = debug_http_requests
       if signature_certificate
         @signature_certificate    = OpenSSL::X509::Certificate.new(signature_certificate)
         @signature_certificate_id = signature_certificate_id
@@ -94,10 +96,15 @@ module Ibanity
         ssl_ca_file:     @ssl_ca_file
       }
 
+      log("HTTP Request", query) if @http_debug
+
       raw_response = RestClient::Request.execute(query) do |response, request, result, &block|
+        log("HTTP response", { status: response.code, headers: response.headers, body: response.body }) if @http_debug
+
         if response.code >= 400
           ibanity_request_id = response.headers[:ibanity_request_id]
           body = JSON.parse(response.body)
+
           raise Ibanity::Error.new(body["errors"] || body, ibanity_request_id), "Ibanity request failed."
         else
           response.return!(&block)
@@ -122,6 +129,39 @@ module Ibanity
         headers
       else
         headers.merge(extra_headers)
+      end
+    end
+
+    def log(tag, info)
+      unless info.is_a?(Hash)
+        puts "[DEBUG] #{tag}: #{info}"
+        return
+      end
+
+      info = JSON.parse(info.to_json)
+
+      if info.dig("headers", "Authorization")
+        info["headers"]["Authorization"] = "[filtered]"
+      end
+      info.delete("proxy")
+      info.delete("ssl_client_cert")
+      info.delete("ssl_client_key")
+      if info.dig("payload").is_a?(Hash) && info.dig("payload", "client_secret")
+        info["payload"]["client_secret"] = "[filtered]"
+      end
+
+      if info["body"]&.is_a?(String)
+        begin
+          info["body"] = JSON.parse(info["body"])
+        rescue => exception
+          info["body"] = Base64.strict_encode64(info["body"])
+        end
+      end
+
+      begin
+        puts "[DEBUG] #{tag}: #{info.to_json}"
+      rescue => e
+        puts "[DEBUG] #{tag}: #{info}"
       end
     end
   end
