@@ -1,6 +1,10 @@
 # Changelog
 
-## Next version
+## 1.8
+
+* [XS2A] Update sandbox transactions
+
+* [XS2A] Add support to list updated transaction using `synchronization_id`
 
 * [Isabel Connect] Add `hideDetails` and `isShared` parameters to `BulkPaymentInititationRequest.create`
 
