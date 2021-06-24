@@ -57,7 +57,7 @@ module Ibanity
   class << self
     def client
       options = configuration.to_h.delete_if { |_, v| v.nil? }
-      @client ||= Ibanity::Client.new(options)
+      @client ||= Ibanity::Client.new(**options)
     end
 
     def configure
