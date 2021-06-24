@@ -128,7 +128,6 @@ module Ibanity
         end
       elsif relationship.dig("links", "meta", "type")
         resource = relationship.dig("links", "meta", "type")
-        raise "Resource type not found in #{relationship}" if resource.nil?
         klass = relationship_klass(resource)
         method_name = Ibanity::Util.underscore(key)
         define_singleton_method(method_name) do |headers: nil|
