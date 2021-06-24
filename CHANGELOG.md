@@ -6,6 +6,8 @@
 
 * [XS2A] Add support to list updated transaction using `synchronization_id`
 
+* [Ponto Connect] Add support to BulkPayments
+
 * [Isabel Connect] Add `hideDetails` and `isShared` parameters to `BulkPaymentInititationRequest.create`
 
 ## 1.7
