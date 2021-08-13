@@ -25,6 +25,14 @@ module Ibanity
             .sub("{financialInstitutionTransactionId}", "")
           create_by_uri(uri: uri, resource_type: "financialInstitutionTransaction", attributes: attributes, customer_access_token: access_token)
         end
+
+        def self.update(access_token:, id:, financial_institution_id:, financial_institution_account_id:, **attributes)
+          uri = Ibanity.ponto_connect_api_schema["sandbox"]["financialInstitution"]["financialInstitutionAccount"]["financialInstitutionTransactions"]
+            .sub("{financialInstitutionId}", financial_institution_id)
+            .sub("{financialInstitutionAccountId}", financial_institution_account_id)
+            .sub("{financialInstitutionTransactionId}", id)
+          update_by_uri(uri: uri, resource_type: "financialInstitutionTransaction", attributes: attributes, customer_access_token: access_token)
+        end
       end
     end
   end
