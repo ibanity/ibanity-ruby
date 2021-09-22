@@ -1,6 +1,10 @@
 module Ibanity
   module IsabelConnect
     class AccessToken < Ibanity::OAuthResource
+      class << self
+        warn "WARNING: Ibanity::IsabelConnect::AccessToken is deprecated, please use Ibanity::IsabelConnect::Token instead"
+      end
+
       def self.create(refresh_token:, idempotency_key: nil)
         uri = Ibanity.isabel_connect_api_schema["oAuth2"]["accessTokens"]
         arguments = [
