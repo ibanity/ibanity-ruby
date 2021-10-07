@@ -53,6 +53,7 @@ require_relative "ibanity/api/ponto_connect/integration"
 require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_account"
 require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_transaction"
 require_relative "ibanity/api/ponto_connect/onboarding_details"
+require_relative "ibanity/api/ponto_connect/reauthorization_request"
 
 module Ibanity
   class << self
