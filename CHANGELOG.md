@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0
+
+* [Isabel Connect] Upgrade to version 2 of the API.
+
 ## 1.11
 
 * Allow to tweak RestClient's timeout.

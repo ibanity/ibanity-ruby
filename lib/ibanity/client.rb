@@ -14,8 +14,8 @@ module Ibanity
         api_scheme: "https",
         api_host: "api.ibanity.com",
         ssl_ca_file: nil,
-        isabel_connect_client_id: "valid_client_id",
-        isabel_connect_client_secret: "valid_client_secret",
+        isabel_connect_client_id: nil,
+        isabel_connect_client_secret: nil,
         ponto_connect_client_id: nil,
         ponto_connect_client_secret: nil,
         application_id: nil,
@@ -124,7 +124,7 @@ module Ibanity
 
     def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:, payload: nil)
       headers = {
-        accept: :json,
+        accept: :json
       }
       headers["Transfer-Encoding"]       = "chunked" if payload.is_a?(Pathname)
       headers[:content_type]             = :json if json

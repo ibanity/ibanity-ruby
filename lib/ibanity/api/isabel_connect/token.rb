@@ -7,32 +7,39 @@ module Ibanity
           if refresh_token
             [
               ["grant_type", "refresh_token"],
-              ["refresh_token", refresh_token],
-              ["client_id", Ibanity.client.isabel_connect_client_id],
-              ["client_secret", Ibanity.client.isabel_connect_client_secret]
+              ["refresh_token", refresh_token]
             ]
           elsif authorization_code
             [
               ["grant_type", "authorization_code"],
               ["code", authorization_code],
-              ["client_id", Ibanity.client.isabel_connect_client_id],
-              ["client_secret", Ibanity.client.isabel_connect_client_secret],
               ["redirect_uri", redirect_uri]
             ]
           end
-        payload = URI.encode_www_form(arguments)
-        create_by_uri(uri: uri, payload: payload, idempotency_key: idempotency_key)
+        create_by_uri(
+          uri: uri,
+          payload: URI.encode_www_form(arguments),
+          idempotency_key: idempotency_key,
+          headers: self.headers
+        )
       end
 
-      def self.delete(token:)
+      def self.delete(refresh_token:)
         uri = Ibanity.isabel_connect_api_schema["oAuth2"]["revoke"]
         arguments = [
-          ["token", token],
-          ["client_id", Ibanity.client.isabel_connect_client_id],
-          ["client_secret", Ibanity.client.isabel_connect_client_secret]
+          ["token", refresh_token]
         ]
         payload = URI.encode_www_form(arguments)
-        create_by_uri(uri: uri, payload: payload)
+        create_by_uri(uri: uri, payload: payload, headers: self.headers)
+      end
+
+      private
+
+      def self.headers
+        {
+          "Authorization": "Basic " + Base64.strict_encode64("#{Ibanity.client.isabel_connect_client_id}:#{Ibanity.client.isabel_connect_client_secret}"),
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
       end
     end
   end
