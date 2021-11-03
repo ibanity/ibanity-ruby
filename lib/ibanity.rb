@@ -11,6 +11,7 @@ require_relative "ibanity/collection"
 require_relative "ibanity/client"
 require_relative "ibanity/http_signature"
 require_relative "ibanity/api/base_resource"
+require_relative "ibanity/api/flat_resource"
 require_relative "ibanity/api/xs2a/account"
 require_relative "ibanity/api/xs2a/transaction"
 require_relative "ibanity/api/xs2a/holding"
@@ -55,6 +56,7 @@ require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_accoun
 require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_transaction"
 require_relative "ibanity/api/ponto_connect/onboarding_details"
 require_relative "ibanity/api/ponto_connect/reauthorization_request"
+require_relative "ibanity/api/webhooks/key"
 
 module Ibanity
   class << self
@@ -69,6 +71,7 @@ module Ibanity
       @isabel_connect_api_schema = nil
       @consent_api_schema        = nil
       @ponto_connect_api_schema  = nil
+      @webhooks_api_schema       = nil
       @sandbox_api_schema        = nil
       @configuration             = nil
       yield configuration
@@ -113,6 +116,10 @@ module Ibanity
 
     def consent_api_schema
       @consent_api_schema ||= client.get(uri: "#{client.base_uri}/consent")["links"]
+    end
+
+    def webhooks_api_schema
+      @webhooks_api_schema ||= client.get(uri: "#{client.base_uri}/webhooks")["links"]
     end
 
     def respond_to_missing?(method_name, include_private = false)
