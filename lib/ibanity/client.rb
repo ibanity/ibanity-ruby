@@ -1,7 +1,7 @@
 module Ibanity
   class Client
 
-    attr_reader :base_uri, :signature_certificate, :signature_key, :isabel_connect_client_id, :isabel_connect_client_secret, :ponto_connect_client_id, :ponto_connect_client_secret
+    attr_reader :base_uri, :signature_certificate, :signature_key, :isabel_connect_client_id, :isabel_connect_client_secret, :ponto_connect_client_id, :ponto_connect_client_secret, :application_id
 
     def initialize(
         certificate:,
@@ -13,12 +13,12 @@ module Ibanity
         signature_key_passphrase: nil,
         api_scheme: "https",
         api_host: "api.ibanity.com",
-        api_port: "443",
         ssl_ca_file: nil,
         isabel_connect_client_id: "valid_client_id",
         isabel_connect_client_secret: "valid_client_secret",
         ponto_connect_client_id: nil,
         ponto_connect_client_secret: nil,
+        application_id: nil,
         debug_http_requests: false)
       @isabel_connect_client_id     = isabel_connect_client_id
       @isabel_connect_client_secret = isabel_connect_client_secret
@@ -32,8 +32,9 @@ module Ibanity
         @signature_certificate_id = signature_certificate_id
         @signature_key            = OpenSSL::PKey::RSA.new(signature_key, signature_key_passphrase)
       end
-      @base_uri              = "#{api_scheme}://#{api_host}:#{api_port}"
+      @base_uri              = "#{api_scheme}://#{api_host}"
       @ssl_ca_file           = ssl_ca_file
+      @application_id        = application_id
     end
 
     def get(uri:, query_params: {}, customer_access_token: nil, headers: nil, json: true)
