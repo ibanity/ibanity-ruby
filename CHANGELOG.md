@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9
+
+* [Ponto Connect] Add account reauthorization requests
+
+* [Isabel Connect] Deprecate `Ibanity::IsabelConnect::AccessToken` and `Ibanity::IsabelConnect::RefreshToken`, please use `Ibanity::IsabelConnect::Token` instead
+
 ## 1.8
 
 * [XS2A] Update sandbox transactions
@@ -40,7 +46,7 @@
 
 ### Enhancements
 
-* Default signature algorithm is now ["hs2019"](https://tools.ietf.org/html/draft-cavage-http-signatures-12#appendix-E.2) 
+* Default signature algorithm is now ["hs2019"](https://tools.ietf.org/html/draft-cavage-http-signatures-12#appendix-E.2)
 * Add support for periodic and bulk payments
 * Add snake-case transformation for deeply nested data structures
 
