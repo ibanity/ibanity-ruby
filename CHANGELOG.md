@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.10
+
+* [Ponto Connect] Add support for payment activation requests
+
+* [Webhooks] Add support for webhook signature validation, keys endpoint, and events.
+
 ## 1.9
 
 * [Ponto Connect] Add account reauthorization requests
