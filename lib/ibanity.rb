@@ -4,6 +4,7 @@ require "uri"
 require "rest_client"
 require "json"
 require "securerandom"
+require "jose"
 
 require_relative "ibanity/util"
 require_relative "ibanity/error"
@@ -11,6 +12,8 @@ require_relative "ibanity/collection"
 require_relative "ibanity/client"
 require_relative "ibanity/http_signature"
 require_relative "ibanity/api/base_resource"
+require_relative "ibanity/api/flat_resource"
+require_relative "ibanity/webhook"
 require_relative "ibanity/api/xs2a/account"
 require_relative "ibanity/api/xs2a/transaction"
 require_relative "ibanity/api/xs2a/holding"
@@ -55,6 +58,10 @@ require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_accoun
 require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_transaction"
 require_relative "ibanity/api/ponto_connect/onboarding_details"
 require_relative "ibanity/api/ponto_connect/reauthorization_request"
+require_relative "ibanity/api/ponto_connect/payment_activation_request"
+require_relative "ibanity/api/webhooks/key"
+require_relative "ibanity/api/webhooks/xs2a"
+require_relative "ibanity/api/webhooks/ponto_connect"
 
 module Ibanity
   class << self
@@ -69,6 +76,7 @@ module Ibanity
       @isabel_connect_api_schema = nil
       @consent_api_schema        = nil
       @ponto_connect_api_schema  = nil
+      @webhooks_api_schema       = nil
       @sandbox_api_schema        = nil
       @configuration             = nil
       yield configuration
@@ -89,8 +97,8 @@ module Ibanity
         :ponto_connect_client_secret,
         :api_scheme,
         :api_host,
-        :api_port,
         :ssl_ca_file,
+        :application_id,
         :debug_http_requests
       ).new
     end
@@ -113,6 +121,14 @@ module Ibanity
 
     def consent_api_schema
       @consent_api_schema ||= client.get(uri: "#{client.base_uri}/consent")["links"]
+    end
+
+    def webhooks_api_schema
+      @webhooks_api_schema ||= client.get(uri: "#{client.base_uri}/webhooks")["links"]
+    end
+
+    def webhook_keys
+      @webhook_keys ||= Ibanity::Webhooks::Key.list
     end
 
     def respond_to_missing?(method_name, include_private = false)

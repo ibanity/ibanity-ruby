@@ -22,6 +22,8 @@ module Ibanity
         formatted_errors.join("\n")
       elsif @errors.is_a?(Hash)
         "* #{@errors["error"]}: #{@errors["error_description"]}\n * Error hint: #{@errors["error_hint"]}\n * ibanity_request_id: #{@ibanity_request_id}"
+      elsif @errors.is_a?(String)
+        @errors
       else
         super
       end
