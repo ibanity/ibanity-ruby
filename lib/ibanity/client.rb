@@ -19,7 +19,9 @@ module Ibanity
         ponto_connect_client_id: nil,
         ponto_connect_client_secret: nil,
         application_id: nil,
-        debug_http_requests: false)
+        debug_http_requests: false,
+        timeout: 60
+      )
       @isabel_connect_client_id     = isabel_connect_client_id
       @isabel_connect_client_secret = isabel_connect_client_secret
       @ponto_connect_client_id      = ponto_connect_client_id
@@ -35,6 +37,7 @@ module Ibanity
       @base_uri              = "#{api_scheme}://#{api_host}"
       @ssl_ca_file           = ssl_ca_file
       @application_id        = application_id
+      @timeout               = timeout
     end
 
     def get(uri:, query_params: {}, customer_access_token: nil, headers: nil, json: true)
@@ -94,7 +97,8 @@ module Ibanity
         payload:         payload,
         ssl_client_cert: @certificate,
         ssl_client_key:  @key,
-        ssl_ca_file:     @ssl_ca_file
+        ssl_ca_file:     @ssl_ca_file,
+        timeout:         @timeout
       }
 
       log("HTTP Request", query) if @http_debug
