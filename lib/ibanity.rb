@@ -99,7 +99,8 @@ module Ibanity
         :api_host,
         :ssl_ca_file,
         :application_id,
-        :debug_http_requests
+        :debug_http_requests,
+        :timeout
       ).new
     end
 
