@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.11
+
+* Allow to tweak RestClient's timeout.
+
 ## 1.10
 
-* [Ponto Connect] Add support for payment activation requests
+* [Ponto Connect] Add support for payment activation requests.
 
 * [Webhooks] Add support for webhook signature validation, keys endpoint, and events.
 
