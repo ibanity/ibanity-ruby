@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1
+
+* [Ponto Connect] Fix UpdatedTransactions relationship parsing for synchronization
+* [XS2A] Fix initialAccountTransactionsSynchronizations relationship parsing for accountInformationAccessRequest
+
 ## 2.0
 
 * [Isabel Connect] Upgrade to version 2 of the API.
