@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.2
+
+* [Ponto Connect] Add additional webhook events
+  * `Ibanity::Webhooks::Account::Reauthorized`
+  * `Ibanity::Webhooks::Integration::AccountAdded`
+  * `Ibanity::Webhooks::Integration::AccountRevoked`
+  * `Ibanity::Webhooks::Integration::Created`
+  * `Ibanity::Webhooks::Integration::Revoked`
+  * `Ibanity::Webhooks::Organization::Blocked`
+  * `Ibanity::Webhooks::Organization::Unblocked`
+
+## 2.1
+
+* [XS2A] Include Bulk & Periodic Payments, with Authorization for TPP managed flow
+
 ## 2.0.1
 
 * [Ponto Connect] Fix UpdatedTransactions relationship parsing for synchronization
