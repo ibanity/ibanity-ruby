@@ -6,7 +6,6 @@ module Ibanity
             .sub("{financialInstitutionId}", financial_institution_id)
             .sub("{accountId}", account_id)
             .sub("{pendingTransactionId}", "")
-        end
         list_by_uri(uri: uri, query_params: query_params, customer_access_token: customer_access_token, headers: headers)
       end
 
