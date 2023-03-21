@@ -63,6 +63,7 @@ require_relative "ibanity/api/ponto_connect/sandbox/financial_institution_transa
 require_relative "ibanity/api/ponto_connect/onboarding_details"
 require_relative "ibanity/api/ponto_connect/reauthorization_request"
 require_relative "ibanity/api/ponto_connect/payment_activation_request"
+require_relative "ibanity/api/ponto_connect/integration_account"
 require_relative "ibanity/api/webhooks/key"
 require_relative "ibanity/api/webhooks/xs2a"
 require_relative "ibanity/api/webhooks/ponto_connect"
