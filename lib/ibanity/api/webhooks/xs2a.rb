@@ -18,6 +18,12 @@ module Ibanity
 
         class TransactionsUpdated < Ibanity::BaseResource
         end
+
+        class PendingTransactionsCreated < Ibanity::BaseResource
+        end
+
+        class PendingTransactionsUpdated < Ibanity::BaseResource
+        end
       end
     end
   end
