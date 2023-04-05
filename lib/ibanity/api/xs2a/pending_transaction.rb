@@ -16,12 +16,10 @@ module Ibanity
       end
 
       def self.find(id:, financial_institution_id:, account_id:, customer_access_token:)
-        puts "Debug #{Ibanity.xs2a_api_schema}"
         uri = Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["pendingTransactions"]
           .sub("{financialInstitutionId}", financial_institution_id)
           .sub("{accountId}", account_id)
           .sub("{pendingTransactionId}", id)
-        puts uri
         find_by_uri(uri: uri, customer_access_token: customer_access_token)
       end
     end
