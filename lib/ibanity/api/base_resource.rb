@@ -114,32 +114,40 @@ module Ibanity
       if relationship["data"]
         resource = relationship.dig("data", "type") || key
         klass = relationship_klass(resource)
-        method_name = Ibanity::Util.underscore(key)
-        define_singleton_method(method_name) do |headers: nil|
-          klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+        unless klass.nil?
+          method_name = Ibanity::Util.underscore(key)
+          define_singleton_method(method_name) do |headers: nil|
+            klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+          end
+          self[Ibanity::Util.underscore("#{key}_id")] = relationship.dig("data", "id")
         end
-        self[Ibanity::Util.underscore("#{key}_id")] = relationship.dig("data", "id")
       elsif relationship["meta"]
         resource = relationship.dig("meta", "type")
         klass = relationship_klass(resource)
-        method_name = Ibanity::Util.underscore(key)
-        define_singleton_method(method_name) do |headers: nil|
-          klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+        unless klass.nil?
+          method_name = Ibanity::Util.underscore(key)
+          define_singleton_method(method_name) do |headers: nil|
+            klass.find_by_uri(uri: url, headers: headers, customer_access_token: customer_access_token)
+          end
         end
       elsif relationship.dig("links", "meta", "type")
         resource = relationship.dig("links", "meta", "type")
         klass = relationship_klass(resource)
-        method_name = Ibanity::Util.underscore(key)
-        define_singleton_method(method_name) do |headers: nil, **query_params|
-          klass.list_by_uri(uri: url, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
+        unless klass.nil?
+          method_name = Ibanity::Util.underscore(key)
+          define_singleton_method(method_name) do |headers: nil, **query_params|
+            klass.list_by_uri(uri: url, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
+          end
         end
       else
         resource = key
         singular_resource = resource[0..-2]
         klass = relationship_klass(singular_resource)
-        method_name = Ibanity::Util.underscore(resource)
-        define_singleton_method(method_name) do |headers: nil, **query_params|
-          klass.list_by_uri(uri: url, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
+        unless klass.nil?
+          method_name = Ibanity::Util.underscore(resource)
+          define_singleton_method(method_name) do |headers: nil, **query_params|
+            klass.list_by_uri(uri: url, headers: headers, query_params: query_params, customer_access_token: customer_access_token)
+          end
         end
       end
     end
@@ -159,7 +167,11 @@ module Ibanity
           Object.const_get(self.class.to_s.split("::")[0...-1].join("::"))
         end
 
-      enclosing_module.const_get(camelized_name)
+      begin
+        enclosing_module.const_get(camelized_name)
+      rescue => e
+        nil
+      end
     end
   end
 end
