@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3
+
+* [Ponto Connect] Add IntegrationAccount
+* [XS2A] Add PendingTransaction
+* [XS2A] Add additional webhooks event
+
+  * `Ibanity::Webhooks::Xs2a::Account::PendingTransactionsCreated`
+  * `Ibanity::Webhooks::Xs2a::Account::PendingTransactionsUpdated`
+
 ## 2.2
 
 * [Ponto Connect] Add additional webhook events
