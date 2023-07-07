@@ -16,9 +16,10 @@ require_relative "ibanity/webhook"
 require_relative "ibanity/api/base_resource"
 require_relative "ibanity/api/flat_resource"
 
+require_relative "ibanity/api/o_auth_resource"
+
 require_relative "ibanity/api/consent"
 require_relative "ibanity/api/isabel_connect"
-require_relative "ibanity/api/o_auth_resource"
 require_relative "ibanity/api/webhooks"
 require_relative "ibanity/api/xs2a"
 
