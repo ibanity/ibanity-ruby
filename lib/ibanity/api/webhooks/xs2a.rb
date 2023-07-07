@@ -16,6 +16,9 @@ module Ibanity
         class TransactionsCreated < Ibanity::BaseResource
         end
 
+        class TransactionsDeleted < Ibanity::BaseResource
+        end
+
         class TransactionsUpdated < Ibanity::BaseResource
         end
 
