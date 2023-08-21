@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+
+* Migrate from Jose to JWT gem following incompatibly with OpenSSL 3. Only used in webhooks signature validation.
+
 ## 2.3
 
 * [Ponto Connect] Add IntegrationAccount
