@@ -4,7 +4,7 @@ require "uri"
 require "rest_client"
 require "json"
 require "securerandom"
-require "jose"
+require "jwt"
 
 require_relative "ibanity/util"
 require_relative "ibanity/error"
