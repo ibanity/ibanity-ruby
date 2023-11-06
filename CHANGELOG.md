@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4
+
+* New TransactionDeleteRequest service
+* New Webhooks for Bulk Payment Initiation Request, Payment Initiation Request, and Periodic Payment Initiation Request
+* Refactor library structure
+* Move module Ibanty::Sandbox (FinancialInstitutionAccount, FinancialInstitutionHolding, FinancialInstitutionTransaction, FinancialInstitutionUser) to Ibanty::Xs2a::Sandbox
+
 ## 2.3.1
 
 * Migrate from Jose to JWT gem following incompatibly with OpenSSL 3. Only used in webhooks signature validation.

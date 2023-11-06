@@ -6,7 +6,7 @@ module Ibanity
           Ibanity.xs2a_api_schema["customer"]["synchronization"]["updatedPendingTransactions"]
           .sub("{synchronizationId}", synchronization_id)
         else
-          Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["pendingTransactions"]
+          Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["account"]["pendingTransactions"]
             .sub("{financialInstitutionId}", financial_institution_id)
             .sub("{accountId}", account_id)
             .sub("{pendingTransactionId}", "")
@@ -16,7 +16,7 @@ module Ibanity
       end
 
       def self.find(id:, financial_institution_id:, account_id:, customer_access_token:)
-        uri = Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["pendingTransactions"]
+        uri = Ibanity.xs2a_api_schema["customer"]["financialInstitution"]["account"]["pendingTransactions"]
           .sub("{financialInstitutionId}", financial_institution_id)
           .sub("{accountId}", account_id)
           .sub("{pendingTransactionId}", id)

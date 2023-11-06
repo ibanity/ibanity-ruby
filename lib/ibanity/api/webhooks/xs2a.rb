@@ -16,6 +16,9 @@ module Ibanity
         class TransactionsCreated < Ibanity::BaseResource
         end
 
+        class TransactionsDeleted < Ibanity::BaseResource
+        end
+
         class TransactionsUpdated < Ibanity::BaseResource
         end
 
@@ -23,6 +26,30 @@ module Ibanity
         end
 
         class PendingTransactionsUpdated < Ibanity::BaseResource
+        end
+      end
+
+      module BulkPaymentInitiationRequest
+        class AuthorizationCompleted < Ibanity::BaseResource
+        end
+
+        class StatusUpdated < Ibanity::BaseResource
+        end
+      end
+
+      module PaymentInitiationRequest
+        class AuthorizationCompleted < Ibanity::BaseResource
+        end
+
+        class StatusUpdated < Ibanity::BaseResource
+        end
+      end
+
+      module PeriodicPaymentInitiationRequest
+        class AuthorizationCompleted < Ibanity::BaseResource
+        end
+
+        class StatusUpdated < Ibanity::BaseResource
         end
       end
     end

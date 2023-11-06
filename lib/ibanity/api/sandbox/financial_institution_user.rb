@@ -1,31 +1,30 @@
 module Ibanity
   module Sandbox
+    # <b>DEPRECATED:</b> Please use <tt>Ibanity::Xs2a::Sandbox::FinancialInstitutionUser</tt> instead.
     class FinancialInstitutionUser < Ibanity::BaseResource
       def self.create(idempotency_key: nil, **attributes)
-        path     = Ibanity.sandbox_api_schema["financialInstitutionUsers"].gsub("{financialInstitutionUserId}", "")
-        uri      = Ibanity.client.build_uri(path)
-        create_by_uri(uri: uri, resource_type: "financialInstitutionUser", attributes: attributes, idempotency_key: idempotency_key)
+        warn "[DEPRECATION] `Ibanity::Sandbox::FinancialInstitutionUser.create` is deprecated. Please use Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.create instead"
+        Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.create(idempotency_key: idempotency_key, attributes)
       end
 
       def self.list(**query_params)
-        uri = Ibanity.sandbox_api_schema["financialInstitutionUsers"].sub("{financialInstitutionUserId}", "")
-        list_by_uri(uri: uri, query_params: query_params)
+        warn "[DEPRECATION] `Ibanity::Sandbox::FinancialInstitutionUser.list` is deprecated. Please use Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.list instead"
+        Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.list(query_params)
       end
 
       def self.find(id:)
-        uri = Ibanity.sandbox_api_schema["financialInstitutionUsers"].sub("{financialInstitutionUserId}", id)
-        find_by_uri(uri: uri)
+        warn "[DEPRECATION] `Ibanity::Sandbox::FinancialInstitutionUser.find` is deprecated. Please use Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.find instead"
+        Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.find(id: id)
       end
 
       def self.update(id:, idempotency_key: nil, **attributes)
-        path = Ibanity.sandbox_api_schema["financialInstitutionUsers"].sub("{financialInstitutionUserId}", id)
-        uri = Ibanity.client.build_uri(path)
-        update_by_uri(uri: uri, resource_type: "financialInstitutionUser", attributes: attributes, idempotency_key: idempotency_key)
+        warn "[DEPRECATION] `Ibanity::Sandbox::FinancialInstitutionUser.update` is deprecated. Please use Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.update instead"
+        Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.find(id: id, idempotency_key: idempotency_key, attributes)
       end
 
       def self.delete(id:)
-        uri = Ibanity.sandbox_api_schema["financialInstitutionUsers"].sub("{financialInstitutionUserId}", id)
-        destroy_by_uri(uri: uri)
+        warn "[DEPRECATION] `Ibanity::Sandbox::FinancialInstitutionUser.delete` is deprecated. Please use Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.delete instead"
+        Ibanity::Xs2a::Sandbox::FinancialInstitutionUser.delete(id: id)
       end
     end
   end
