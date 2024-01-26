@@ -3,6 +3,11 @@
 ## 2.5
 
 * [Ponto Connect] Add payment requests
+* [Ponto Connect] Add PendingTransaction
+* [Ponto Connect] Add additional webhooks event
+
+  * `Ibanity::Webhooks::PontoConnect::Account::PendingTransactionsCreated`
+  * `Ibanity::Webhooks::PontoConnect::Account::PendingTransactionsUpdated`
 
 ## 2.4
 
@@ -27,13 +32,13 @@
 ## 2.2
 
 * [Ponto Connect] Add additional webhook events
-  * `Ibanity::Webhooks::Account::Reauthorized`
-  * `Ibanity::Webhooks::Integration::AccountAdded`
-  * `Ibanity::Webhooks::Integration::AccountRevoked`
-  * `Ibanity::Webhooks::Integration::Created`
-  * `Ibanity::Webhooks::Integration::Revoked`
-  * `Ibanity::Webhooks::Organization::Blocked`
-  * `Ibanity::Webhooks::Organization::Unblocked`
+  * `Ibanity::Webhooks::PontoConnect::Account::Reauthorized`
+  * `Ibanity::Webhooks::PontoConnect::Integration::AccountAdded`
+  * `Ibanity::Webhooks::PontoConnect::Integration::AccountRevoked`
+  * `Ibanity::Webhooks::PontoConnect::Integration::Created`
+  * `Ibanity::Webhooks::PontoConnect::Integration::Revoked`
+  * `Ibanity::Webhooks::PontoConnect::Organization::Blocked`
+  * `Ibanity::Webhooks::PontoConnect::Organization::Unblocked`
 
 ## 2.1
 
