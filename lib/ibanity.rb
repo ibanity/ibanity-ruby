@@ -21,7 +21,6 @@ require_relative "ibanity/api/o_auth_resource"
 require_relative "ibanity/api/consent"
 require_relative "ibanity/api/ponto_connect"
 require_relative "ibanity/api/isabel_connect"
-require_relative "ibanity/api/ponto_connect"
 require_relative "ibanity/api/webhooks"
 require_relative "ibanity/api/xs2a"
 
