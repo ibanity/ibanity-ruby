@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5
+
+* [Ponto Connect] Add payment requests
+
 ## 2.4
 
 * New TransactionDeleteRequest service
