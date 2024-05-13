@@ -50,6 +50,11 @@ module Ibanity
         class Unblocked < Ibanity::BaseResource
         end
       end
+
+      module PaymentRequest
+        class Closed < Ibanity::BaseResource
+        end
+      end
     end
   end
 end
