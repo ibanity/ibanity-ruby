@@ -99,6 +99,8 @@ module Ibanity
 
     def setup_relationships(relationships, customer_access_token = nil)
       relationships.each do |key, relationship|
+        next if relationship.nil?
+
         url = relationship.dig("links", "related")
         id = relationship.dig("data", "id")
 
