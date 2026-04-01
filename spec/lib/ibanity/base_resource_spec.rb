@@ -27,6 +27,15 @@ RSpec.describe Ibanity::BaseResource do
       end
     end
 
+    context "when a relationship value is nil" do
+      it "skips the nil relationship and processes the rest" do
+        car = Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/nil_relationship.json"))
+
+        expect(car).to respond_to(:maker)
+        expect(car).not_to respond_to(:previous_owner)
+      end
+    end
+
     context "when there's no 'links/related' element" do
       let(:car) { Ibanity::Xs2a::Car.new(Fixture.load_json("relationships/no_links_related.json")) }
 
