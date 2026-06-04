@@ -1,20 +1,22 @@
 module Ibanity
   module IsabelConnect
     class BulkPaymentInitiationRequest < Ibanity::BaseResource
-      def self.create(access_token:, raw_content:, filename:, idempotency_key: nil, is_shared: true, hide_details: false)
+      def self.create(access_token:, raw_content:, filename:, idempotency_key: nil, is_shared: true, hide_details: false, envelope_name: nil)
         uri = Ibanity.isabel_connect_api_schema["bulkPaymentInitiationRequests"].sub("{bulkPaymentInitiationRequestId}", "")
+        headers = {
+          content_type: :xml,
+          "Content-Disposition": "inline; filename=#{filename}",
+          "Is-Shared": is_shared,
+          "Hide-Details": hide_details
+        }
+        headers["envelopeName"] = envelope_name unless envelope_name.nil?
         create_file_by_uri(
           uri: uri,
           resource_type: "bulkPaymentInitiationRequest",
           raw_content: raw_content,
           customer_access_token: access_token,
           idempotency_key: idempotency_key,
-          headers: {
-            content_type: :xml,
-            "Content-Disposition": "inline; filename=#{filename}",
-            "Is-Shared": is_shared,
-            "Hide-Details": hide_details
-          }
+          headers: headers
         )
       end
 
