@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "14e2bff5-e365-4bc7-bf48-76b7bcd464e9",
+      "type": "paymentNotification",
+      "attributes": {
+        "notificationType": "payment.status.updated",
+        "createdAt": "2026-06-04T14:30:00.000Z"
+      },
+      "relationships": {
+        "payment": {
+          "data": {
+            "id": "90000036388319",
+            "type": "bulkPayment"
+          }
+        }
+      }
+    }
+  ]
+}
