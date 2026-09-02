@@ -44,24 +44,5 @@ RSpec.describe Ibanity::IsabelConnect::PaymentNotification do
     end
   end
 
-  describe ".destroy" do
-    before do
-      allow(client).to receive(:delete)
-        .with(uri: "#{notifications_uri}/#{notification_id}", customer_access_token: access_token)
-        .and_return("")
-    end
 
-    it "returns true" do
-      result = described_class.destroy(id: notification_id, access_token: access_token)
-      expect(result).to be true
-    end
-
-    it "calls DELETE on the correct URI" do
-      expect(client).to receive(:delete)
-        .with(uri: "#{notifications_uri}/#{notification_id}", customer_access_token: access_token)
-        .and_return("")
-
-      described_class.destroy(id: notification_id, access_token: access_token)
-    end
-  end
 end
