@@ -19,8 +19,8 @@ RSpec.describe Ibanity::Webhooks::IsabelConnect do
       expect(event.id).to eq("550e8400-e29b-41d4-a716-446655440000")
     end
 
-    it "exposes the notification_type" do
-      expect(event.notification_type).to eq("payment.status.updated")
+    it "exposes the notification_id" do
+      expect(event.notification_id).to eq("14e2bff5-e365-4bc7-bf48-76b7bcd464e9")
     end
 
     it "exposes the created_at" do
