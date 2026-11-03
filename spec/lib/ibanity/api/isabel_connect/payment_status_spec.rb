@@ -19,8 +19,8 @@ RSpec.describe Ibanity::IsabelConnect::PaymentStatus do
     context "without a notification_id" do
       before do
         allow(client).to receive(:get)
-          .with(uri: payment_status_uri, query_params: {}, customer_access_token: access_token)
-          .and_return(xml_response)
+          .with(uri: payment_status_uri, query_params: {}, customer_access_token: access_token, expose_headers: [:x_notification_status])
+          .and_return({ body: xml_response, headers: {} })
       end
 
       it "returns the raw XML response" do
@@ -30,8 +30,8 @@ RSpec.describe Ibanity::IsabelConnect::PaymentStatus do
 
       it "calls GET on the correct URI" do
         expect(client).to receive(:get)
-          .with(uri: payment_status_uri, query_params: {}, customer_access_token: access_token)
-          .and_return(xml_response)
+          .with(uri: payment_status_uri, query_params: {}, customer_access_token: access_token, expose_headers: [:x_notification_status])
+          .and_return({ body: xml_response, headers: {} })
 
         described_class.find(id: payment_id, access_token: access_token)
       end
@@ -42,16 +42,31 @@ RSpec.describe Ibanity::IsabelConnect::PaymentStatus do
 
       before do
         allow(client).to receive(:get)
-          .with(uri: payment_status_uri, query_params: { notificationId: notification_id }, customer_access_token: access_token)
-          .and_return(xml_response)
+          .with(uri: payment_status_uri, query_params: { notificationId: notification_id }, customer_access_token: access_token, expose_headers: [:x_notification_status])
+          .and_return({ body: xml_response, headers: {} })
       end
 
       it "passes notificationId as a query parameter" do
         expect(client).to receive(:get)
-          .with(uri: payment_status_uri, query_params: { notificationId: notification_id }, customer_access_token: access_token)
-          .and_return(xml_response)
+          .with(uri: payment_status_uri, query_params: { notificationId: notification_id }, customer_access_token: access_token, expose_headers: [:x_notification_status])
+          .and_return({ body: xml_response, headers: {} })
 
         described_class.find(id: payment_id, access_token: access_token, notification_id: notification_id)
+      end
+    end
+
+    context "when the payment status is up to date" do
+      let(:notification_id) { "a" }
+
+      before do
+        allow(client).to receive(:get)
+          .with(uri: payment_status_uri, query_params: { notificationId: notification_id }, customer_access_token: access_token, expose_headers: [:x_notification_status])
+          .and_return({ body: "", headers: { x_notification_status: "upToDate" } })
+      end
+
+      it "returns the notification status instead of a body" do
+        result = described_class.find(id: payment_id, access_token: access_token, notification_id: notification_id)
+        expect(result).to eq(status: :up_to_date, notification_status: "upToDate")
       end
     end
   end
