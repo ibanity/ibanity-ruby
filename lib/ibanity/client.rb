@@ -40,9 +40,9 @@ module Ibanity
       @timeout               = timeout
     end
 
-    def get(uri:, query_params: {}, customer_access_token: nil, headers: nil, json: true)
+    def get(uri:, query_params: {}, customer_access_token: nil, headers: nil, json: true, expose_headers: [])
       headers = build_headers(customer_access_token: customer_access_token, extra_headers: headers, json: json)
-      execute(method: :get, uri: uri, headers: headers, query_params: query_params, json: json)
+      execute(method: :get, uri: uri, headers: headers, query_params: query_params, json: json, expose_headers: expose_headers)
     end
 
     def post(uri:, payload:, query_params: {}, customer_access_token: nil, idempotency_key: nil, json: true, headers: nil)
@@ -66,7 +66,7 @@ module Ibanity
 
     private
 
-    def execute(method:, uri:, headers:, query_params: {}, payload: nil, json:)
+    def execute(method:, uri:, headers:, query_params: {}, payload: nil, json:, expose_headers: [])
       case payload
       when NilClass
         payload = ''
@@ -115,11 +115,20 @@ module Ibanity
           response.return!(&block)
         end
       end
-      JSON.parse(raw_response)
+      wrap_response(JSON.parse(raw_response), raw_response, expose_headers)
     rescue JSON::ParserError => e
-      return raw_response.body
+      wrap_response(raw_response.body, raw_response, expose_headers)
     ensure
       payload.close if payload.is_a?(File)
+    end
+
+    def wrap_response(body, raw_response, expose_headers)
+      return body if expose_headers.empty?
+
+      headers = expose_headers.each_with_object({}) do |name, acc|
+        acc[name] = raw_response.headers[name]
+      end
+      { body: body, headers: headers }
     end
 
     def build_headers(customer_access_token: nil, idempotency_key: nil, extra_headers: nil, json:, payload: nil)
